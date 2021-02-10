@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../appdat
+
+patches:
+- path: service-patch.yaml
+  target:
+    kind: Service
+    name: ingress-nginx-controller
+    namespace: ingress-nginx

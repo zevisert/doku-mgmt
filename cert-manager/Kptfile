@@ -1,0 +1,20 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: cert-manager
+packageMetadata:
+  shortDescription: Automatically provision and manage TLS certificates in Kubernetes
+openAPI:
+  definitions:
+    io.k8s.cli.setters.email:
+      x-k8s-cli:
+        setter:
+          name: email
+          value: user@example.com
+          setBy: package-default
+    io.k8s.cli.setters.issuer:
+      x-k8s-cli:
+        setter:
+          name: issuer
+          value: https://acme-v02.api.letsencrypt.org/directory
+          setBy: package-default
