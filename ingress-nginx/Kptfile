@@ -4,3 +4,10 @@ metadata:
   name: ingress-nginx
 packageMetadata:
   shortDescription: NGINX Ingress Controller for Kubernetes
+openAPI:
+  definitions:
+    io.k8s.cli.setters.log-bucket:
+      x-k8s-cli:
+        setter:
+          name: log-bucket
+          value: nlb-access-logs
