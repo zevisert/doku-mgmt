@@ -7,4 +7,3 @@ patches:
   target:
     kind: Service
     name: ingress-nginx-controller
-    namespace: ingress-nginx

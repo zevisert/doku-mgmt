@@ -23,6 +23,7 @@ openAPI:
         setter:
           name: namespace
           value: appdat-system
+          setBy: package-default
     io.k8s.cli.substitutions.webhook-ca:
       x-k8s-cli:
         substitution:
