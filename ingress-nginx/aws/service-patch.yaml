@@ -1,7 +1,6 @@
 kind: Service
 metadata:
   name: ingress-nginx-controller
-  namespace: ingress-nginx
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "5"
     service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"

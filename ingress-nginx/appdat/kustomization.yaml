@@ -1,24 +1,20 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
+namespace: appdat-system # {"$kpt-set":"namespace"}
 bases:
 - ../upstream
-
 configMapGenerator:
 - name: ingress-nginx-custom-add-headers
-  namespace: ingress-nginx
   behavior: create
   options:
     disableNameSuffixHash: true
   literals:
   - Referrer-Policy=strict-origin-when-cross-origin
   - X-Using-Nginx-Controller="true"
-
 - name: ingress-nginx-controller
-  namespace: ingress-nginx
   behavior: merge
   literals:
-  - add-headers=ingress-nginx/ingress-nginx-custom-add-headers
+  - add-headers=appdat-system/ingress-nginx-custom-add-headers # {"$kpt-set":"headers-config-path"}
   - enable-modsecurity="true"
   - enable-vts-status="true"
   - generate-request-id="true"
@@ -34,7 +30,6 @@ configMapGenerator:
   - use-proxy-protocol="true"
   files:
   - log-format-upstream=log-format-upstream.json
-
 patches:
 - patch: |-
     - op: replace
@@ -43,7 +38,6 @@ patches:
   target:
     kind: Service
     name: ingress-nginx-controller
-    namespace: ingress-nginx
 - patch: |-
     - op: replace
       path: /kind
@@ -51,4 +45,3 @@ patches:
   target:
     kind: Deployment
     name: ingress-nginx-controller
-    namespace: ingress-nginx
