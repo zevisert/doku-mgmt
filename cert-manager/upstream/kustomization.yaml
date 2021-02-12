@@ -9,7 +9,6 @@ resources:
 - cainjector-serviceaccount.yaml
 - crds.yaml
 - deployment.yaml
-- kustomization.yaml
 - rbac.yaml
 - serviceaccount.yaml
 - service.yaml
