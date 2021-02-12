@@ -18,3 +18,16 @@ openAPI:
           name: issuer
           value: https://acme-v02.api.letsencrypt.org/directory
           setBy: package-default
+    io.k8s.cli.setters.namespace:
+      x-k8s-cli:
+        setter:
+          name: namespace
+          value: appdat-system
+    io.k8s.cli.substitutions.webhook-ca:
+      x-k8s-cli:
+        substitution:
+          name: webhook-ca
+          pattern: ${namespace}/cert-manager-webhook-ca
+          values:
+          - marker: ${namespace}
+            ref: '#/definitions/io.k8s.cli.setters.namespace'
