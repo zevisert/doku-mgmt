@@ -4,8 +4,11 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory # {"$kpt-set":"issuer"}
     email: "user@example.com" # {"$kpt-set":"email"}
+    server: https://acme-v02.api.letsencrypt.org/directory # {"$kpt-set":"issuer"}
     privateKeySecretRef:
       name: letsencrypt-prod
-    http01: {}
+    solvers:
+    - http01:
+       ingress:
+         class: nginx
