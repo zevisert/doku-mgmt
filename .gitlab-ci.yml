@@ -1,0 +1,14 @@
+include:
+- project: appdat/templates
+  file: v2/Security/Secret-Detection.gitlab-ci.yml
+- project: appdat/templates
+  file: v2/Security/SAST.gitlab-ci.yml
+
+stages:
+- test
+
+sast:
+  stage: test
+  variables:
+    SAST_DEFAULT_ANALYZERS: kubesec
+    SCAN_KUBERNETES_MANIFESTS: "true"
