@@ -3,11 +3,11 @@ kind: Kustomization
 namespace: appdat-system # {"$kpt-set":"namespace"}
 bases:
 - ../upstream
+generatorOptions:
+  disableNameSuffixHash: true
 configMapGenerator:
 - name: ingress-nginx-custom-add-headers
   behavior: create
-  options:
-    disableNameSuffixHash: true
   literals:
   - Referrer-Policy=strict-origin-when-cross-origin
   - X-Using-Nginx-Controller="true"

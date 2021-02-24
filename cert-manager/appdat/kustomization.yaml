@@ -5,16 +5,10 @@ bases:
 - ../upstream
 
 resources:
-- default-issuer.yaml
+- ../default-issuer/cluster-issuer.yaml
 
 patches:
-- patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/args/-
-      value: --default-issuer-name=letsencrypt-prod
-    - op: add
-      path: /spec/template/spec/containers/0/args/-
-      value: --default-issuer-kind=ClusterIssuer
+- patch: ../default-issuer/deployment-patch.json
   target:
     kind: Deployment
     name: cert-manager

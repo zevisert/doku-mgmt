@@ -1,0 +1,12 @@
+[
+  {
+     "op": "add",
+     "path": "/spec/template/spec/containers/0/args/-",
+     "value": "--default-issuer-name=letsencrypt-prod"
+  },
+  {
+     "op": "add",
+     "path": "/spec/template/spec/containers/0/args/-",
+     "value": "--default-issuer-kind=ClusterIssuer"
+  }
+]
