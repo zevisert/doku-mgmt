@@ -40,26 +40,18 @@ openAPI:
           values:
           - marker: ${gitlab-url}
             ref: '#/definitions/io.k8s.cli.setters.gitlab-url'
-    io.k8s.cli.setters.runner-image:
-      x-k8s-cli:
-        setter:
-          name: runner-image
-          value: gitlab/gitlab-runner
-          setBy: package-default
     io.k8s.cli.setters.runner-version:
       x-k8s-cli:
         setter:
           name: runner-version
-          value: alpine-v13.8.0
+          value: v13.8.0
           setBy: package-default
-    io.k8s.cli.substitutions.runner-image-subst:
+    io.k8s.cli.substitutions.runner-version-subst:
       x-k8s-cli:
         substitution:
-          name: runner-image-subst
-          pattern: ${runner-image}:${runner-version}
+          name: runner-version-subst
+          pattern: alpine-${runner-version}
           values:
-          - marker: ${runner-image}
-            ref: '#/definitions/io.k8s.cli.setters.runner-image'
           - marker: ${runner-version}
             ref: '#/definitions/io.k8s.cli.setters.runner-version'
     io.k8s.cli.setters.runner-name:
