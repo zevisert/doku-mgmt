@@ -26,33 +26,6 @@ openAPI:
           values:
           - marker: ${runner-namespace}
             ref: '#/definitions/io.k8s.cli.setters.runner-namespace'
-    io.k8s.cli.setters.registration-token:
-      x-k8s-cli:
-        setter:
-          name: registration-token
-          required: true
-    io.k8s.cli.setters.runner-token:
-      x-k8s-cli:
-        setter:
-          name: runner-token
-          value: ""
-          setBy: package-default
-    io.k8s.cli.substitutions.registration-token-subst:
-      x-k8s-cli:
-        substitution:
-          name: registration-token-subst
-          pattern: runner-registration-token="${registration-token}"
-          values:
-          - marker: ${registration-token}
-            ref: '#/definitions/io.k8s.cli.setters.registration-token'
-    io.k8s.cli.substitutions.runner-token-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner-token-subst
-          pattern: runner-token="${runner-token}"
-          values:
-          - marker: ${runner-token}
-            ref: '#/definitions/io.k8s.cli.setters.runner-token'
     io.k8s.cli.setters.gitlab-url:
       x-k8s-cli:
         setter:

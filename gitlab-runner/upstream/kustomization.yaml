@@ -16,13 +16,11 @@ configMapGenerator:
   - CI_SERVER_URL="https://appdat.jsc.nasa.gov" # {"$kpt-set":"gitlab-url-subst"}
   - KUBERNETES_NAMESPACE="appdat-system" # {"$kpt-set":"runner-namespace-subst"}
   - RUNNER_NAME="default" # {"$kpt-set":"runner-name-env-subst"}
-  - RUNNER_EXECUTOR="kubernetes"
-  - RUNNER_REQUEST_CONCURRENCY="1"
 secretGenerator:
 - name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
   literals:
-  - runner-registration-token="" # {"$kpt-set":"registration-token-subst"}
-  - runner-token="" # {"$kpt-set":"runner-token-subst"}
+  - runner-registration-token=""
+  - runner-token=""
 resources:
 - deployment.yaml
 - role-binding.yaml

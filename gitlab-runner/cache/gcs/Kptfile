@@ -1,0 +1,22 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: gcs
+packageMetadata:
+  shortDescription: sample description
+openAPI:
+  definitions:
+    io.k8s.cli.setters.bucket:
+      x-k8s-cli:
+        setter:
+          name: bucket
+          value: runner-cache
+          setBy: package-default
+    io.k8s.cli.substitutions.bucket-subst:
+      x-k8s-cli:
+        substitution:
+          name: bucket-subst
+          pattern: CACHE_GCS_BUCKET_NAME="${bucket}"
+          values:
+          - marker: ${bucket}
+            ref: '#/definitions/io.k8s.cli.setters.bucket'
