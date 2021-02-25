@@ -1,0 +1,91 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: gitlab-runner
+packageMetadata:
+  shortDescription: GitLab Runner (https://gitlab.com/gitlab-org/gitlab-runner)
+openAPI:
+  definitions:
+    io.k8s.cli.setters.namespace:
+      x-k8s-cli:
+        setter:
+          name: namespace
+          value: appdat-system
+          setBy: package-default
+    io.k8s.cli.setters.runner-namespace:
+      x-k8s-cli:
+        setter:
+          name: runner-namespace
+          value: appdat-system
+          setBy: package-default
+    io.k8s.cli.substitutions.runner-namespace-subst:
+      x-k8s-cli:
+        substitution:
+          name: runner-namespace-subst
+          pattern: KUBERNETES_NAMESPACE="${runner-namespace}"
+          values:
+          - marker: ${runner-namespace}
+            ref: '#/definitions/io.k8s.cli.setters.runner-namespace'
+    io.k8s.cli.setters.registration-token:
+      x-k8s-cli:
+        setter:
+          name: registration-token
+          required: true
+    io.k8s.cli.setters.runner-token:
+      x-k8s-cli:
+        setter:
+          name: runner-token
+          value: ""
+          setBy: package-default
+    io.k8s.cli.substitutions.registration-token-subst:
+      x-k8s-cli:
+        substitution:
+          name: registration-token-subst
+          pattern: runner-registration-token="${registration-token}"
+          values:
+          - marker: ${registration-token}
+            ref: '#/definitions/io.k8s.cli.setters.registration-token'
+    io.k8s.cli.substitutions.runner-token-subst:
+      x-k8s-cli:
+        substitution:
+          name: runner-token-subst
+          pattern: runner-token="${runner-token}"
+          values:
+          - marker: ${runner-token}
+            ref: '#/definitions/io.k8s.cli.setters.runner-token'
+    io.k8s.cli.setters.gitlab-url:
+      x-k8s-cli:
+        setter:
+          name: gitlab-url
+          value: https://appdat.jsc.nasa.gov
+          setBy: package-default
+    io.k8s.cli.substitutions.gitlab-url-subst:
+      x-k8s-cli:
+        substitution:
+          name: gitlab-url-subst
+          pattern: CI_SERVER_URL="${gitlab-url}"
+          values:
+          - marker: ${gitlab-url}
+            ref: '#/definitions/io.k8s.cli.setters.gitlab-url'
+    io.k8s.cli.setters.runner-image:
+      x-k8s-cli:
+        setter:
+          name: runner-image
+          value: gitlab/gitlab-runner
+          setBy: package-default
+    io.k8s.cli.setters.runner-version:
+      x-k8s-cli:
+        setter:
+          name: runner-version
+          value: alpine-v13.8.0
+          setBy: package-default
+    io.k8s.cli.substitutions.runner-image-subst:
+      x-k8s-cli:
+        substitution:
+          name: runner-image-subst
+          pattern: ${runner-image}:${runner-version}
+          values:
+          - marker: ${runner-image}
+            ref: '#/definitions/io.k8s.cli.setters.runner-image'
+          - marker: ${runner-version}
+            ref: '#/definitions/io.k8s.cli.setters.runner-version'
