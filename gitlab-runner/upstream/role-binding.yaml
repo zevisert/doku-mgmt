@@ -1,17 +1,17 @@
 # Source: gitlab-runner/templates/role-binding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
-kind: "RoleBinding"
+kind: RoleBinding
 metadata:
-  name: gitlab-runner
+  name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
   labels:
-    app: gitlab-runner
+    app: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
     chart: gitlab-runner-0.25.0
     release: "gitlab-runner"
     heritage: "Helm"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: "Role"
-  name: gitlab-runner
+  kind: Role
+  name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
 subjects:
 - kind: ServiceAccount
-  name: gitlab-runner
+  name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}

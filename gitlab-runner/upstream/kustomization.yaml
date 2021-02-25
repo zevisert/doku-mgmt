@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: appdat-system # {"$kpt-set":"namespace"}
 configMapGenerator:
-- name: gitlab-runner
+- name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
   files:
   - config.toml=config/config.toml
   - config.template.toml=config/config.template.toml
@@ -11,14 +11,15 @@ configMapGenerator:
   - entrypoint=config/entrypoint.sh
   - pre-entrypoint-script=config/pre-entrypoint.sh
   - register-the-runner=config/register.sh
-- name: gitlab-runner-env
+- name: gitlab-runner-default-env # {"$kpt-set":"runner-name-cfgmap-subst"}
   literals:
   - CI_SERVER_URL="https://appdat.jsc.nasa.gov" # {"$kpt-set":"gitlab-url-subst"}
   - KUBERNETES_NAMESPACE="appdat-system" # {"$kpt-set":"runner-namespace-subst"}
+  - RUNNER_NAME="default" # {"$kpt-set":"runner-name-env-subst"}
   - RUNNER_EXECUTOR="kubernetes"
   - RUNNER_REQUEST_CONCURRENCY="1"
 secretGenerator:
-- name: gitlab-runner
+- name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
   literals:
   - runner-registration-token="" # {"$kpt-set":"registration-token-subst"}
   - runner-token="" # {"$kpt-set":"runner-token-subst"}

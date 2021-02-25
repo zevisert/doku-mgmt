@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitlab-runner
+  name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
   labels:
-    app: gitlab-runner
+    app: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
     chart: gitlab-runner-0.25.0
     release: "gitlab-runner"
     heritage: "Helm"
@@ -12,11 +12,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gitlab-runner
+      app: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
   template:
     metadata:
       labels:
-        app: gitlab-runner
+        app: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
         chart: gitlab-runner-0.25.0
         release: "gitlab-runner"
         heritage: "Helm"
@@ -35,7 +35,7 @@ spec:
         imagePullPolicy: "IfNotPresent"
         envFrom:
         - configMapRef:
-            name: gitlab-runner-env
+            name: gitlab-runner-default-env # {"$kpt-set":"runner-name-cfgmap-subst"}
         securityContext:
           allowPrivilegeEscalation: false
         volumeMounts:
@@ -56,7 +56,7 @@ spec:
         imagePullPolicy: "IfNotPresent"
         envFrom:
         - configMapRef:
-            name: gitlab-runner-env
+            name: gitlab-runner-default-env # {"$kpt-set":"runner-name-cfgmap-subst"}
         securityContext:
           allowPrivilegeEscalation: false
         lifecycle:
@@ -102,7 +102,7 @@ spec:
         projected:
           sources:
           - secret:
-              name: "gitlab-runner"
+              name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
               items:
               - key: runner-registration-token
                 path: runner-registration-token
@@ -110,4 +110,4 @@ spec:
                 path: runner-token
       - name: scripts
         configMap:
-          name: gitlab-runner
+          name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
