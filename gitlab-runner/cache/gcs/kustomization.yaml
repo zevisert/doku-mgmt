@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 configMapGenerator:
-- name: gitlab-runner-default-env # {"$kpt-set":"runner-name-cfgmap-subst"}
+- name: gitlab-runner-env
   literals:
   - CACHE_TYPE=gcs
   - CACHE_SHARED=true
@@ -9,7 +9,7 @@ configMapGenerator:
   - CACHE_GCS_BUCKET_NAME="runner-cache" # {"$kpt-set":"bucket-subst"}
   behavior: merge
 secretGenerator:
-- name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
+- name: gitlab-runner
   files:
   - gcs-application-credentials-file=secrets/credentials.json
   behavior: merge

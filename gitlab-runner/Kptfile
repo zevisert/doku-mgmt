@@ -60,22 +60,14 @@ openAPI:
           name: runner-name
           value: default
           setBy: package-default
-    io.k8s.cli.substitutions.runner-name-subst:
+    io.k8s.cli.substitutions.runner-name-suffix-subst:
       x-k8s-cli:
         substitution:
-          name: runner-name-subst
-          pattern: gitlab-runner-${runner-name}
+          name: runner-name-suffix-subst
+          pattern: -${runner-name}
           values:
           - marker: ${runner-name}
             ref: '#/definitions/io.k8s.cli.setters.runner-name'
-    io.k8s.cli.substitutions.runner-name-cfgmap-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner-name-cfgmap-subst
-          pattern: ${runner-name-subst}-env
-          values:
-          - marker: ${runner-name-subst}
-            ref: '#/definitions/io.k8s.cli.substitutions.runner-name-subst'
     io.k8s.cli.substitutions.runner-name-env-subst:
       x-k8s-cli:
         substitution:

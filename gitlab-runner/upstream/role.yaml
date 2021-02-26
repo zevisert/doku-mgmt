@@ -2,9 +2,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
+  name: gitlab-runner
   labels:
-    app: gitlab-runner-default # {"$kpt-set":"runner-name-subst"}
+    app: gitlab-runner
     chart: gitlab-runner-0.25.0
     release: "gitlab-runner"
     heritage: "Helm"
