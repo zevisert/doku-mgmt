@@ -4,7 +4,7 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    email: "user@example.com" # {"$kpt-set":"email"}
+    email: operations@appdat.jsc.nasa.gov # {"$kpt-set":"email"}
     server: https://acme-v02.api.letsencrypt.org/directory # {"$kpt-set":"issuer"}
     privateKeySecretRef:
       name: letsencrypt-prod

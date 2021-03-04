@@ -10,7 +10,7 @@ openAPI:
       x-k8s-cli:
         setter:
           name: email
-          value: user@example.com
+          value: operations@appdat.jsc.nasa.gov
           setBy: package-default
     io.k8s.cli.setters.issuer:
       x-k8s-cli:
