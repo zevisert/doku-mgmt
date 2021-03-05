@@ -8,9 +8,9 @@ metadata:
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/managed-by: 'Helm'
     app.kubernetes.io/name: 'cert-manager'
-    helm.sh/chart: 'cert-manager-v1.1.0'
+    helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -20,12 +20,14 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
   names:
     kind: CertificateRequest
+    categories:
+    - cert-manager
     listKind: CertificateRequestList
     plural: certificaterequests
     shortNames:
@@ -61,7 +63,7 @@ spec:
           from one of the configured issuers. \n All fields within the CertificateRequest's
           `spec` are immutable after creation. A CertificateRequest will either succeed
           or fail, as denoted by its `status.state` field. \n A CertificateRequest
-          is a 'one-shot' resource, meaning it represents a single point in time request
+          is a one-shot resource, meaning it represents a single point in time request
           for a certificate and cannot be re-used."
         properties:
           apiVersion:
@@ -97,12 +99,12 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this CertificateRequest.  If
-                  the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the CertificateRequest
-                  will be used.  If the 'kind' field is set to 'ClusterIssuer', a
-                  ClusterIssuer with the provided name will be used. The 'name' field
+                  will be used.  If the `kind` field is set to `ClusterIssuer`, a
+                  ClusterIssuer with the provided name will be used. The `name` field
                   in this stanza is required at all times. The group field refers
-                  to the API group of the issuer which defaults to 'cert-manager.io'
+                  to the API group of the issuer which defaults to `cert-manager.io`
                   if empty.
                 properties:
                   name:
@@ -189,12 +191,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
-                        'InvalidRequest').
+                      description: Type of the condition, known values are (`Ready`,
+                        `InvalidRequest`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -251,7 +253,7 @@ spec:
           from one of the configured issuers. \n All fields within the CertificateRequest's
           `spec` are immutable after creation. A CertificateRequest will either succeed
           or fail, as denoted by its `status.state` field. \n A CertificateRequest
-          is a 'one-shot' resource, meaning it represents a single point in time request
+          is a one-shot resource, meaning it represents a single point in time request
           for a certificate and cannot be re-used."
         properties:
           apiVersion:
@@ -287,12 +289,12 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this CertificateRequest.  If
-                  the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the CertificateRequest
-                  will be used.  If the 'kind' field is set to 'ClusterIssuer', a
-                  ClusterIssuer with the provided name will be used. The 'name' field
+                  will be used.  If the `kind` field is set to `ClusterIssuer`, a
+                  ClusterIssuer with the provided name will be used. The `name` field
                   in this stanza is required at all times. The group field refers
-                  to the API group of the issuer which defaults to 'cert-manager.io'
+                  to the API group of the issuer which defaults to `cert-manager.io`
                   if empty.
                 properties:
                   name:
@@ -379,12 +381,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
-                        'InvalidRequest').
+                      description: Type of the condition, known values are (`Ready`,
+                        `InvalidRequest`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -441,7 +443,7 @@ spec:
           from one of the configured issuers. \n All fields within the CertificateRequest's
           `spec` are immutable after creation. A CertificateRequest will either succeed
           or fail, as denoted by its `status.state` field. \n A CertificateRequest
-          is a 'one-shot' resource, meaning it represents a single point in time request
+          is a one-shot resource, meaning it represents a single point in time request
           for a certificate and cannot be re-used."
         properties:
           apiVersion:
@@ -472,12 +474,12 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this CertificateRequest.  If
-                  the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the CertificateRequest
-                  will be used.  If the 'kind' field is set to 'ClusterIssuer', a
-                  ClusterIssuer with the provided name will be used. The 'name' field
+                  will be used.  If the `kind` field is set to `ClusterIssuer`, a
+                  ClusterIssuer with the provided name will be used. The `name` field
                   in this stanza is required at all times. The group field refers
-                  to the API group of the issuer which defaults to 'cert-manager.io'
+                  to the API group of the issuer which defaults to `cert-manager.io`
                   if empty.
                 properties:
                   name:
@@ -569,12 +571,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
-                        'InvalidRequest').
+                      description: Type of the condition, known values are (`Ready`,
+                        `InvalidRequest`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -633,7 +635,7 @@ spec:
           from one of the configured issuers. \n All fields within the CertificateRequest's
           `spec` are immutable after creation. A CertificateRequest will either succeed
           or fail, as denoted by its `status.state` field. \n A CertificateRequest
-          is a 'one-shot' resource, meaning it represents a single point in time request
+          is a one-shot resource, meaning it represents a single point in time request
           for a certificate and cannot be re-used."
         properties:
           apiVersion:
@@ -664,12 +666,12 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this CertificateRequest.  If
-                  the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the CertificateRequest
-                  will be used.  If the 'kind' field is set to 'ClusterIssuer', a
-                  ClusterIssuer with the provided name will be used. The 'name' field
+                  will be used.  If the `kind` field is set to `ClusterIssuer`, a
+                  ClusterIssuer with the provided name will be used. The `name` field
                   in this stanza is required at all times. The group field refers
-                  to the API group of the issuer which defaults to 'cert-manager.io'
+                  to the API group of the issuer which defaults to `cert-manager.io`
                   if empty.
                 properties:
                   name:
@@ -762,12 +764,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
-                        'InvalidRequest').
+                      description: Type of the condition, known values are (`Ready`,
+                        `InvalidRequest`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -816,9 +818,9 @@ metadata:
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/managed-by: 'Helm'
     app.kubernetes.io/name: 'cert-manager'
-    helm.sh/chart: 'cert-manager-v1.1.0'
+    helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -828,12 +830,14 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
   names:
     kind: Certificate
+    categories:
+    - cert-manager
     listKind: CertificateList
     plural: certificates
     shortNames:
@@ -932,10 +936,10 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this certificate.
-                  If the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  If the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the Certificate will
-                  be used. If the 'kind' field is set to 'ClusterIssuer', a ClusterIssuer
-                  with the provided name will be used. The 'name' field in this stanza
+                  be used. If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer
+                  with the provided name will be used. The `name` field in this stanza
                   is required at all times.
                 properties:
                   name:
@@ -953,9 +957,9 @@ spec:
                 type: string
                 description: KeyAlgorithm is the private key algorithm of the corresponding
                   private key for this certificate. If provided, allowed values are
-                  either "rsa" or "ecdsa" If `keyAlgorithm` is specified and `keySize`
-                  is not provided, key size of 256 will be used for "ecdsa" key algorithm
-                  and key size of 2048 will be used for "rsa" key algorithm.
+                  either `rsa` or `ecdsa` If `keyAlgorithm` is specified and `keySize`
+                  is not provided, key size of 256 will be used for `ecdsa` key algorithm
+                  and key size of 2048 will be used for `rsa` key algorithm.
                 enum:
                 - rsa
                 - ecdsa
@@ -963,8 +967,8 @@ spec:
                 type: string
                 description: KeyEncoding is the private key cryptography standards
                   (PKCS) for this certificate's private key to be encoded in. If provided,
-                  allowed values are "pkcs1" and "pkcs8" standing for PKCS#1 and PKCS#8,
-                  respectively. If KeyEncoding is not specified, then PKCS#1 will
+                  allowed values are `pkcs1` and `pkcs8` standing for PKCS#1 and PKCS#8,
+                  respectively. If KeyEncoding is not specified, then `pkcs1` will
                   be used by default.
                 enum:
                 - pkcs1
@@ -972,13 +976,11 @@ spec:
               keySize:
                 type: integer
                 description: KeySize is the key bit size of the corresponding private
-                  key for this certificate. If `keyAlgorithm` is set to `RSA`, valid
+                  key for this certificate. If `keyAlgorithm` is set to `rsa`, valid
                   values are `2048`, `4096` or `8192`, and will default to `2048`
-                  if not specified. If `keyAlgorithm` is set to `ECDSA`, valid values
+                  if not specified. If `keyAlgorithm` is set to `ecdsa`, valid values
                   are `256`, `384` or `521`, and will default to `256` if not specified.
                   No other values are allowed.
-                maximum: 8192
-                minimum: 0
               keystores:
                 type: object
                 description: Keystores configures additional keystore output formats
@@ -1195,12 +1197,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
+                      description: Type of the condition, known values are (`Ready`,
                         `Issuing`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -1344,10 +1346,10 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this certificate.
-                  If the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  If the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the Certificate will
-                  be used. If the 'kind' field is set to 'ClusterIssuer', a ClusterIssuer
-                  with the provided name will be used. The 'name' field in this stanza
+                  be used. If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer
+                  with the provided name will be used. The `name` field in this stanza
                   is required at all times.
                 properties:
                   name:
@@ -1365,9 +1367,9 @@ spec:
                 type: string
                 description: KeyAlgorithm is the private key algorithm of the corresponding
                   private key for this certificate. If provided, allowed values are
-                  either "rsa" or "ecdsa" If `keyAlgorithm` is specified and `keySize`
-                  is not provided, key size of 256 will be used for "ecdsa" key algorithm
-                  and key size of 2048 will be used for "rsa" key algorithm.
+                  either `rsa` or `ecdsa` If `keyAlgorithm` is specified and `keySize`
+                  is not provided, key size of 256 will be used for `ecdsa` key algorithm
+                  and key size of 2048 will be used for `rsa` key algorithm.
                 enum:
                 - rsa
                 - ecdsa
@@ -1375,8 +1377,8 @@ spec:
                 type: string
                 description: KeyEncoding is the private key cryptography standards
                   (PKCS) for this certificate's private key to be encoded in. If provided,
-                  allowed values are "pkcs1" and "pkcs8" standing for PKCS#1 and PKCS#8,
-                  respectively. If KeyEncoding is not specified, then PKCS#1 will
+                  allowed values are `pkcs1` and `pkcs8` standing for PKCS#1 and PKCS#8,
+                  respectively. If KeyEncoding is not specified, then `pkcs1` will
                   be used by default.
                 enum:
                 - pkcs1
@@ -1384,13 +1386,11 @@ spec:
               keySize:
                 type: integer
                 description: KeySize is the key bit size of the corresponding private
-                  key for this certificate. If `keyAlgorithm` is set to `RSA`, valid
+                  key for this certificate. If `keyAlgorithm` is set to `rsa`, valid
                   values are `2048`, `4096` or `8192`, and will default to `2048`
-                  if not specified. If `keyAlgorithm` is set to `ECDSA`, valid values
+                  if not specified. If `keyAlgorithm` is set to `ecdsa`, valid values
                   are `256`, `384` or `521`, and will default to `256` if not specified.
                   No other values are allowed.
-                maximum: 8192
-                minimum: 0
               keystores:
                 type: object
                 description: Keystores configures additional keystore output formats
@@ -1407,7 +1407,10 @@ spec:
                           Certificate. If true, a file named `keystore.jks` will be
                           created in the target Secret resource, encrypted using the
                           password stored in `passwordSecretRef`. The keystore file
-                          will only be updated upon re-issuance.
+                          will only be updated upon re-issuance. A file named `truststore.jks`
+                          will also be created in the target Secret resource, encrypted
+                          using the password stored in `passwordSecretRef` containing
+                          the issuing Certificate Authority.
                       passwordSecretRef:
                         type: object
                         description: PasswordSecretRef is a reference to a key in
@@ -1439,7 +1442,10 @@ spec:
                           Certificate. If true, a file named `keystore.p12` will be
                           created in the target Secret resource, encrypted using the
                           password stored in `passwordSecretRef`. The keystore file
-                          will only be updated upon re-issuance.
+                          will only be updated upon re-issuance. A file named `truststore.p12`
+                          will also be created in the target Secret resource, encrypted
+                          using the password stored in `passwordSecretRef` containing
+                          the issuing Certificate Authority.
                       passwordSecretRef:
                         type: object
                         description: PasswordSecretRef is a reference to a key in
@@ -1606,12 +1612,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
+                      description: Type of the condition, known values are (`Ready`,
                         `Issuing`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -1755,10 +1761,10 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this certificate.
-                  If the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  If the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the Certificate will
-                  be used. If the 'kind' field is set to 'ClusterIssuer', a ClusterIssuer
-                  with the provided name will be used. The 'name' field in this stanza
+                  be used. If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer
+                  with the provided name will be used. The `name` field in this stanza
                   is required at all times.
                 properties:
                   name:
@@ -1849,9 +1855,9 @@ spec:
                     type: string
                     description: Algorithm is the private key algorithm of the corresponding
                       private key for this certificate. If provided, allowed values
-                      are either "rsa" or "ecdsa" If `algorithm` is specified and
-                      `size` is not provided, key size of 256 will be used for "ecdsa"
-                      key algorithm and key size of 2048 will be used for "rsa" key
+                      are either `RSA` or `ECDSA` If `algorithm` is specified and
+                      `size` is not provided, key size of 256 will be used for `ECDSA`
+                      key algorithm and key size of 2048 will be used for `RSA` key
                       algorithm.
                     enum:
                     - RSA
@@ -1860,8 +1866,8 @@ spec:
                     type: string
                     description: The private key cryptography standards (PKCS) encoding
                       for this certificate's private key to be encoded in. If provided,
-                      allowed values are "pkcs1" and "pkcs8" standing for PKCS#1 and
-                      PKCS#8, respectively. Defaults to PKCS#1 if not specified.
+                      allowed values are `PKCS1` and `PKCS8` standing for PKCS#1 and
+                      PKCS#8, respectively. Defaults to `PKCS1` if not specified.
                     enum:
                     - PKCS1
                     - PKCS8
@@ -1884,8 +1890,6 @@ spec:
                       if not specified. If `algorithm` is set to `ECDSA`, valid values
                       are `256`, `384` or `521`, and will default to `256` if not
                       specified. No other values are allowed.
-                    maximum: 8192
-                    minimum: 0
               renewBefore:
                 type: string
                 description: The amount of time before the currently issued certificate's
@@ -2017,12 +2021,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
+                      description: Type of the condition, known values are (`Ready`,
                         `Issuing`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -2168,10 +2172,10 @@ spec:
               issuerRef:
                 type: object
                 description: IssuerRef is a reference to the issuer for this certificate.
-                  If the 'kind' field is not set, or set to 'Issuer', an Issuer resource
+                  If the `kind` field is not set, or set to `Issuer`, an Issuer resource
                   with the given name in the same namespace as the Certificate will
-                  be used. If the 'kind' field is set to 'ClusterIssuer', a ClusterIssuer
-                  with the provided name will be used. The 'name' field in this stanza
+                  be used. If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer
+                  with the provided name will be used. The `name` field in this stanza
                   is required at all times.
                 properties:
                   name:
@@ -2201,7 +2205,10 @@ spec:
                           Certificate. If true, a file named `keystore.jks` will be
                           created in the target Secret resource, encrypted using the
                           password stored in `passwordSecretRef`. The keystore file
-                          will only be updated upon re-issuance.
+                          will only be updated upon re-issuance. A file named `truststore.jks`
+                          will also be created in the target Secret resource, encrypted
+                          using the password stored in `passwordSecretRef` containing
+                          the issuing Certificate Authority
                       passwordSecretRef:
                         type: object
                         description: PasswordSecretRef is a reference to a key in
@@ -2233,7 +2240,10 @@ spec:
                           Certificate. If true, a file named `keystore.p12` will be
                           created in the target Secret resource, encrypted using the
                           password stored in `passwordSecretRef`. The keystore file
-                          will only be updated upon re-issuance.
+                          will only be updated upon re-issuance. A file named `truststore.p12`
+                          will also be created in the target Secret resource, encrypted
+                          using the password stored in `passwordSecretRef` containing
+                          the issuing Certificate Authority
                       passwordSecretRef:
                         type: object
                         description: PasswordSecretRef is a reference to a key in
@@ -2262,9 +2272,9 @@ spec:
                     type: string
                     description: Algorithm is the private key algorithm of the corresponding
                       private key for this certificate. If provided, allowed values
-                      are either "rsa" or "ecdsa" If `algorithm` is specified and
-                      `size` is not provided, key size of 256 will be used for "ecdsa"
-                      key algorithm and key size of 2048 will be used for "rsa" key
+                      are either `RSA` or `ECDSA` If `algorithm` is specified and
+                      `size` is not provided, key size of 256 will be used for `ECDSA`
+                      key algorithm and key size of 2048 will be used for `RSA` key
                       algorithm.
                     enum:
                     - RSA
@@ -2273,8 +2283,8 @@ spec:
                     type: string
                     description: The private key cryptography standards (PKCS) encoding
                       for this certificate's private key to be encoded in. If provided,
-                      allowed values are "pkcs1" and "pkcs8" standing for PKCS#1 and
-                      PKCS#8, respectively. Defaults to PKCS#1 if not specified.
+                      allowed values are `PKCS1` and `PKCS8` standing for PKCS#1 and
+                      PKCS#8, respectively. Defaults to `PKCS1` if not specified.
                     enum:
                     - PKCS1
                     - PKCS8
@@ -2297,8 +2307,6 @@ spec:
                       if not specified. If `algorithm` is set to `ECDSA`, valid values
                       are `256`, `384` or `521`, and will default to `256` if not
                       specified. No other values are allowed.
-                    maximum: 8192
-                    minimum: 0
               renewBefore:
                 type: string
                 description: The amount of time before the currently issued certificate's
@@ -2430,12 +2438,12 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready',
+                      description: Type of the condition, known values are (`Ready`,
                         `Issuing`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -2508,9 +2516,9 @@ metadata:
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/managed-by: 'Helm'
     app.kubernetes.io/name: 'cert-manager'
-    helm.sh/chart: 'cert-manager-v1.1.0'
+    helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -2520,12 +2528,15 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: acme.cert-manager.io
   names:
     kind: Challenge
+    categories:
+    - cert-manager
+    - cert-manager-acme
     listKind: ChallengeList
     plural: challenges
     singular: challenge
@@ -8536,9 +8547,9 @@ metadata:
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/managed-by: 'Helm'
     app.kubernetes.io/name: 'cert-manager'
-    helm.sh/chart: 'cert-manager-v1.1.0'
+    helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -8548,12 +8559,14 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
   names:
     kind: ClusterIssuer
+    categories:
+    - cert-manager
     listKind: ClusterIssuerList
     plural: clusterissuers
     singular: clusterissuer
@@ -10259,6 +10272,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -10509,11 +10531,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -12238,6 +12260,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -12488,11 +12519,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -14217,6 +14248,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -14467,11 +14507,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -16198,6 +16238,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -16448,11 +16497,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -16496,9 +16545,9 @@ metadata:
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/managed-by: 'Helm'
     app.kubernetes.io/name: 'cert-manager'
-    helm.sh/chart: 'cert-manager-v1.1.0'
+    helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -16508,12 +16557,14 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
   names:
     kind: Issuer
+    categories:
+    - cert-manager
     listKind: IssuerList
     plural: issuers
     singular: issuer
@@ -18218,6 +18269,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -18468,11 +18528,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -20196,6 +20256,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -20446,11 +20515,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -22174,6 +22243,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -22424,11 +22502,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -24154,6 +24232,15 @@ spec:
                       certificates will be issued without distribution points set.
                     items:
                       type: string
+                  ocspServers:
+                    type: array
+                    description: The OCSP server list is an X.509 v3 extension that
+                      defines a list of URLs of OCSP responders. The OCSP responders
+                      can be queried for the revocation status of an issued certificate.
+                      If not set, the certificate wil be issued with no OCSP servers
+                      set. For example, an OCSP server URL could be "http://ocsp.int-x3.letsencrypt.org".
+                    items:
+                      type: string
                   secretName:
                     type: string
                     description: SecretName is the name of the secret used to sign
@@ -24404,11 +24491,11 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: Type of the condition, known values are ('Ready').
+                      description: Type of the condition, known values are (`Ready`).
                     status:
                       type: string
-                      description: Status of the condition, one of ('True', 'False',
-                        'Unknown').
+                      description: Status of the condition, one of (`True`, `False`,
+                        `Unknown`).
                       enum:
                       - "True"
                       - "False"
@@ -24452,9 +24539,9 @@ metadata:
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/managed-by: 'Helm'
     app.kubernetes.io/name: 'cert-manager'
-    helm.sh/chart: 'cert-manager-v1.1.0'
+    helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -24464,12 +24551,15 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: acme.cert-manager.io
   names:
     kind: Order
+    categories:
+    - cert-manager
+    - cert-manager-acme
     listKind: OrderList
     plural: orders
     singular: order

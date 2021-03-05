@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["certificates"]
   apiGroups: ["cert-manager.io"]
@@ -44,14 +44,14 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-cainjector
   kind: ClusterRole
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager-cainjector
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/cainjector-rbac.yaml
@@ -67,7 +67,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["configmaps"]
   # Used for leader election by the controller
@@ -96,12 +96,12 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-cainjector:leaderelection
   kind: Role
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager-cainjector
-  namespace: appdat-system # {"$kpt-set":"namespace"}
+  namespace: default
   kind: ServiceAccount

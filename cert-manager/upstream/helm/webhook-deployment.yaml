@@ -3,14 +3,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager-webhook
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   labels:
     app: webhook
     app.kubernetes.io/component: "webhook"
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 spec:
   replicas: 1
   selector:
@@ -26,18 +26,18 @@ spec:
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: webhook
-        helm.sh/chart: cert-manager-v1.1.0
+        helm.sh/chart: cert-manager-v1.2.0
     spec:
       serviceAccountName: cert-manager-webhook
       containers:
       - name: cert-manager
-        image: "quay.io/jetstack/cert-manager-webhook:v1.1.0"
+        image: "quay.io/jetstack/cert-manager-webhook:v1.2.0"
         args:
         - --v=2
         - --secure-port=10250
         - --dynamic-serving-ca-secret-namespace=$(POD_NAMESPACE)
         - --dynamic-serving-ca-secret-name=cert-manager-webhook-ca
-        - --dynamic-serving-dns-names=cert-manager-webhook,cert-manager-webhook.$(POD_NAMESPACE),cert-manager-webhook.$(POD_NAMESPACE).svc
+        - --dynamic-serving-dns-names=cert-manager-webhook,cert-manager-webhook.default,cert-manager-webhook.default.svc
         ports:
         - name: https
           containerPort: 10250

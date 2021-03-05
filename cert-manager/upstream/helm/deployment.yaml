@@ -3,14 +3,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   labels:
     app: cert-manager
     app.kubernetes.io/component: "controller"
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 spec:
   replicas: 1
   selector:
@@ -26,7 +26,7 @@ spec:
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: cert-manager
-        helm.sh/chart: cert-manager-v1.1.0
+        helm.sh/chart: cert-manager-v1.2.0
       annotations:
         prometheus.io/path: "/metrics"
         prometheus.io/port: '9402'
@@ -35,7 +35,7 @@ spec:
       serviceAccountName: cert-manager
       containers:
       - name: cert-manager
-        image: "quay.io/jetstack/cert-manager-controller:v1.1.0"
+        image: "quay.io/jetstack/cert-manager-controller:v1.2.0"
         args:
         - --v=2
         - --cluster-resource-namespace=$(POD_NAMESPACE)
