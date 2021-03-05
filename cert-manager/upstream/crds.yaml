@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -20,7 +20,7 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
@@ -820,7 +820,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -830,7 +830,7 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
@@ -2518,7 +2518,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -2528,7 +2528,7 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: acme.cert-manager.io
@@ -8549,7 +8549,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -8559,7 +8559,7 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
@@ -16547,7 +16547,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -16557,7 +16557,7 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: cert-manager.io
@@ -24541,7 +24541,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     helm.sh/chart: 'cert-manager-v1.2.0'
   annotations:
-    cert-manager.io/inject-ca-from-secret: 'appdat-system/cert-manager-webhook-ca' # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: 'default/cert-manager-webhook-ca'
 spec:
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
@@ -24551,7 +24551,7 @@ spec:
       clientConfig:
         service:
           name: 'cert-manager-webhook'
-          namespace: 'appdat-system' # {"$kpt-set":"namespace"}
+          namespace: 'default'
           path: /convert
       conversionReviewVersions: ["v1", "v1beta1"]
   group: acme.cert-manager.io

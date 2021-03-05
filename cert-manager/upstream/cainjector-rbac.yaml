@@ -51,7 +51,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager-cainjector
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/cainjector-rbac.yaml
@@ -103,5 +103,5 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager-cainjector
-  namespace: appdat-system # {"$kpt-set":"namespace"}
+  namespace: default
   kind: ServiceAccount

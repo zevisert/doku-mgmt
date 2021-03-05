@@ -281,7 +281,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -302,7 +302,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -323,7 +323,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -344,7 +344,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -365,7 +365,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -386,7 +386,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -433,6 +433,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager
-  namespace: appdat-system # {"$kpt-set":"namespace"}
+  namespace: default
   kind: ServiceAccount
   apiGroup: ""

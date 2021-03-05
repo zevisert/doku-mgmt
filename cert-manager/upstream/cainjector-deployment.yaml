@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager-cainjector
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   labels:
     app: cainjector
     app.kubernetes.io/component: "cainjector"

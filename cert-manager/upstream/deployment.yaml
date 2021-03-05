@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   labels:
     app: cert-manager
     app.kubernetes.io/component: "controller"

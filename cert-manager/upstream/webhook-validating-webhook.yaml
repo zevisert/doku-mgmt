@@ -11,14 +11,14 @@ metadata:
     app.kubernetes.io/name: webhook
     helm.sh/chart: cert-manager-v1.2.0
   annotations:
-    cert-manager.io/inject-ca-from-secret: "appdat-system/cert-manager-webhook-ca" # {"$kpt-set":"webhook-ca"}
+    cert-manager.io/inject-ca-from-secret: "default/cert-manager-webhook-ca"
 webhooks:
 - name: webhook.cert-manager.io
   admissionReviewVersions: ["v1", "v1beta1"]
   clientConfig:
     service:
       name: cert-manager-webhook
-      namespace: "appdat-system" # {"$kpt-set":"namespace"}
+      namespace: "default"
       path: /validate
   failurePolicy: Fail
   namespaceSelector:
@@ -30,7 +30,7 @@ webhooks:
     - key: "name"
       operator: "NotIn"
       values:
-      - appdat-system # {"$kpt-set":"namespace"}
+      - default
   rules:
   - resources:
     - "*/*"

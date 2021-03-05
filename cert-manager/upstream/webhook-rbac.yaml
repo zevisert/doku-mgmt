@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: cert-manager-webhook:dynamic-serving
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   labels:
     app: webhook
     app.kubernetes.io/component: "webhook"
@@ -27,7 +27,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager-webhook:dynamic-serving
-  namespace: "appdat-system" # {"$kpt-set":"namespace"}
+  namespace: "default"
   labels:
     app: webhook
     app.kubernetes.io/component: "webhook"
@@ -41,6 +41,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - name: cert-manager-webhook
-  namespace: appdat-system # {"$kpt-set":"namespace"}
+  namespace: default
   kind: ServiceAccount
   apiGroup: ""
