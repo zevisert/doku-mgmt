@@ -1,17 +1,62 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+configurations:
+  - configurations.yaml
+
 resources:
-- cainjector-deployment.yaml
-- cainjector-rbac.yaml
-- cainjector-serviceaccount.yaml
-- crds.yaml
-- deployment.yaml
-- rbac.yaml
-- serviceaccount.yaml
-- service.yaml
-- webhook-deployment.yaml
-- webhook-mutating-webhook.yaml
-- webhook-rbac.yaml
-- webhook-serviceaccount.yaml
-- webhook-service.yaml
-- webhook-validating-webhook.yaml
+- helm/cainjector-deployment.yaml
+- helm/cainjector-rbac.yaml
+- helm/cainjector-serviceaccount.yaml
+- helm/crds.yaml
+- helm/deployment.yaml
+- helm/rbac.yaml
+- helm/serviceaccount.yaml
+- helm/service.yaml
+- helm/webhook-deployment.yaml
+- helm/webhook-mutating-webhook.yaml
+- helm/webhook-rbac.yaml
+- helm/webhook-serviceaccount.yaml
+- helm/webhook-service.yaml
+- helm/webhook-validating-webhook.yaml
+
+vars:
+- name: WEBHOOK_DEPLOYMENT_NAME
+  objref:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cert-manager-webhook
+  fieldref:
+    fieldpath: metadata.name
+- name: WEBHOOK_DEPLOYMENT_NAMESPACE
+  objref:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cert-manager-webhook
+  fieldref:
+    fieldpath: metadata.namespace
+
+patches:
+- patch: |-
+    - op: replace
+      path: "/metadata/annotations/cert-manager.io~1inject-ca-from-secret"
+      value: $(WEBHOOK_DEPLOYMENT_NAMESPACE)/$(WEBHOOK_DEPLOYMENT_NAME)-ca
+  target:
+    annotationSelector: "cert-manager.io/inject-ca-from-secret"
+- patch: |-
+    - op: replace
+      path: "/spec/template/spec/containers/0/args/3"
+      value: --dynamic-serving-ca-secret-name=$(WEBHOOK_DEPLOYMENT_NAME)-ca
+    - op: replace
+      path: "/spec/template/spec/containers/0/args/4"
+      value: --dynamic-serving-dns-names=$(WEBHOOK_DEPLOYMENT_NAME),$(WEBHOOK_DEPLOYMENT_NAME).$(WEBHOOK_DEPLOYMENT_NAMESPACE),$(WEBHOOK_DEPLOYMENT_NAME).$(WEBHOOK_DEPLOYMENT_NAMESPACE).svc
+  target:
+    kind: Deployment
+    name: cert-manager-webhook
+- patch: |-
+    - op: replace
+      path: "/webhooks/0/namespaceSelector/matchExpressions/1/values/0"
+      value: $(WEBHOOK_DEPLOYMENT_NAMESPACE)
+  target:
+    kind: ValidatingWebhookConfiguration
+    name: cert-manager-webhook
