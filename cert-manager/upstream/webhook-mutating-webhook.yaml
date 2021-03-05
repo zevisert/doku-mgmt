@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
   annotations:
     cert-manager.io/inject-ca-from-secret: "appdat-system/cert-manager-webhook-ca" # {"$kpt-set":"webhook-ca"}
 webhooks:

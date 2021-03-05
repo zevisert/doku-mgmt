@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["issuers", "issuers/status"]
   apiGroups: ["cert-manager.io"]
@@ -37,7 +37,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["clusterissuers", "clusterissuers/status"]
   apiGroups: ["cert-manager.io"]
@@ -64,7 +64,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["certificates", "certificates/status", "certificaterequests", "certificaterequests/status"]
   apiGroups: ["cert-manager.io"]
@@ -100,7 +100,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["orders", "orders/status"]
   apiGroups: ["acme.cert-manager.io"]
@@ -139,7 +139,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["challenges", "challenges/status"]
   # Use to update challenge resource status
@@ -166,7 +166,7 @@ rules:
   apiGroups: [""]
   verbs: ["get", "list", "watch", "create", "delete"]
 - resources: ["ingresses"]
-  apiGroups: ["extensions"]
+  apiGroups: ["networking.k8s.io"]
   verbs: ["get", "list", "watch", "create", "delete", "update"]
 - resources: ["routes/custom-host"]
   # We require the ability to specify a custom hostname when we are creating
@@ -197,7 +197,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["certificates", "certificaterequests"]
   apiGroups: ["cert-manager.io"]
@@ -206,13 +206,13 @@ rules:
   apiGroups: ["cert-manager.io"]
   verbs: ["get", "list", "watch"]
 - resources: ["ingresses"]
-  apiGroups: ["extensions"]
+  apiGroups: ["networking.k8s.io"]
   verbs: ["get", "list", "watch"]
 - resources: ["ingresses/finalizers"]
   # We require these rules to support users with the OwnerReferencesPermissionEnforcement
   # admission controller enabled:
   # https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement
-  apiGroups: ["extensions"]
+  apiGroups: ["networking.k8s.io"]
   verbs: ["update"]
 - resources: ["events"]
   apiGroups: [""]
@@ -229,7 +229,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-view: "true"
@@ -252,7 +252,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
 rules:
@@ -274,7 +274,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-controller-issuers
   kind: ClusterRole
@@ -295,7 +295,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-controller-clusterissuers
   kind: ClusterRole
@@ -316,7 +316,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-controller-certificates
   kind: ClusterRole
@@ -337,7 +337,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-controller-orders
   kind: ClusterRole
@@ -358,7 +358,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-controller-challenges
   kind: ClusterRole
@@ -379,7 +379,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager-controller-ingress-shim
   kind: ClusterRole
@@ -401,7 +401,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 rules:
 - resources: ["configmaps"]
   # Used for leader election by the controller
@@ -426,7 +426,7 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    helm.sh/chart: cert-manager-v1.1.0
+    helm.sh/chart: cert-manager-v1.2.0
 roleRef:
   name: cert-manager:leaderelection
   kind: Role
