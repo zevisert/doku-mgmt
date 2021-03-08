@@ -5,7 +5,22 @@ resources:
 - cluster-issuer.yaml
 
 patches:
-- path: deployment-patch.json
+- patch: |
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --default-issuer-name=$(DEFAULT_ISSUER_NAME)
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --default-issuer-kind=ClusterIssuer
   target:
     kind: Deployment
     name: cert-manager
+
+vars:
+- name: DEFAULT_ISSUER_NAME
+  fieldref:
+    fieldPath: metadata.name
+  objref:
+    name: letsencrypt-prod
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer

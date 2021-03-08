@@ -1,4 +1,18 @@
 nameReference:
+- kind: Secret
+  version: v1
+  fieldSpecs:
+  - kind: ClusterIssuer
+    group: cert-manager.io
+    version: v1
+    path: spec/acme/privateKeySecretRef/name
+- kind: Secret
+  version: v1
+  fieldSpecs:
+  - kind: Issuer
+    group: cert-manager.io
+    version: v1
+    path: spec/acme/privateKeySecretRef/name
 - kind: Service
   version: v1
   fieldSpecs:
