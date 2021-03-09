@@ -6,12 +6,6 @@ packageMetadata:
   shortDescription: GitLab Runner (https://gitlab.com/gitlab-org/gitlab-runner)
 openAPI:
   definitions:
-    io.k8s.cli.setters.namespace:
-      x-k8s-cli:
-        setter:
-          name: namespace
-          value: appdat-system
-          setBy: package-default
     io.k8s.cli.setters.runner-namespace:
       x-k8s-cli:
         setter:
