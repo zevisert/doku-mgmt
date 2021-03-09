@@ -36,6 +36,20 @@ patches:
     kind: Deployment
 - patch: |-
     - op: replace
+      path: /spec/template/spec/containers/0/args/1
+      value: --leader-election-namespace=$(LEADER_ELECTION_NAMESPACE)
+  target:
+    name: cert-manager-cainjector
+    kind: Deployment
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/2
+      value: --leader-election-namespace=$(LEADER_ELECTION_NAMESPACE)
+  target:
+    name: cert-manager
+    kind: Deployment
+- patch: |-
+    - op: replace
       path: /webhooks/0/namespaceSelector/matchExpressions/1/values/0
       value: $(WEBHOOK_DEPLOYMENT_NAMESPACE)
   target:
@@ -56,3 +70,11 @@ vars:
     name: cert-manager-webhook
     apiVersion: apps/v1
     kind: Deployment
+- name: LEADER_ELECTION_NAMESPACE
+  fieldref:
+    fieldpath: metadata.namespace
+  objref:
+    name: cert-manager-cainjector:leaderelection
+    apiVersion: v1
+    group: rbac.authorization.k8s.io
+    kind: Role
