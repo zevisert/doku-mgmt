@@ -44,14 +44,14 @@ patches:
 vars:
 - name: WEBHOOK_DEPLOYMENT_NAME
   fieldref:
-    fieldPath: metadata.name
+    fieldpath: metadata.name
   objref:
     name: cert-manager-webhook
     apiVersion: apps/v1
     kind: Deployment
 - name: WEBHOOK_DEPLOYMENT_NAMESPACE
   fieldref:
-    fieldPath: metadata.namespace
+    fieldpath: metadata.namespace
   objref:
     name: cert-manager-webhook
     apiVersion: apps/v1

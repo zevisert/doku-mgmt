@@ -12,17 +12,3 @@ openAPI:
           name: log-bucket
           value: nlb-access-logs
           setBy: package-default
-    io.k8s.cli.setters.namespace:
-      x-k8s-cli:
-        setter:
-          name: namespace
-          value: appdat-system
-          setBy: package-default
-    io.k8s.cli.substitutions.headers-config-path:
-      x-k8s-cli:
-        substitution:
-          name: headers-config-path
-          pattern: add-headers=${namespace}/ingress-nginx-custom-add-headers
-          values:
-          - marker: ${namespace}
-            ref: '#/definitions/io.k8s.cli.setters.namespace'

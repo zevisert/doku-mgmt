@@ -4,6 +4,9 @@ kind: Component
 resources:
 - cluster-issuer.yaml
 
+configurations:
+- configurations.yaml
+
 patches:
 - patch: |
     - op: add
@@ -19,7 +22,7 @@ patches:
 vars:
 - name: DEFAULT_ISSUER_NAME
   fieldref:
-    fieldPath: metadata.name
+    fieldpath: metadata.name
   objref:
     name: letsencrypt-prod
     apiVersion: cert-manager.io/v1
