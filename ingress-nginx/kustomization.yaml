@@ -3,32 +3,10 @@ kind: Kustomization
 namespace: appdat-system
 resources:
 - upstream
-configurations:
-- configurations.yaml
-configMapGenerator:
-# https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
-- name: ingress-nginx-controller
-  behavior: merge
-  literals:
-  - add-headers=$(HEADERS_CONFIGMAP_NAMESPACE)/$(HEADERS_CONFIGMAP_NAME)
-  - enable-modsecurity="true"
-  - enable-vts-status="true"
-  - generate-request-id="true"
-  - hsts-include-subdomains="true"
-  - hsts-max-age="31536000"
-  - hsts-preload="true"
-  - hsts="true"
-  - log-format-escape-json="true"
-  - server-tokens="false"
-  - ssl-ciphers=ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4
-  - ssl-protocols=TLSv1.2 TLSv1.3
-  files:
-  - log-format-upstream=log-format.json
-- name: ingress-nginx-custom-headers
-  behavior: create
-  literals:
-  - Referrer-Policy=strict-origin-when-cross-origin
-  - X-Using-Nginx-Controller="true"
+components:
+- custom-config
+- json-logs
+- security
 patches:
 - patch: |-
     - op: replace
@@ -44,18 +22,3 @@ patches:
   target:
     kind: Deployment
     name: ingress-nginx-controller
-vars:
-- name: HEADERS_CONFIGMAP_NAME
-  fieldref:
-    fieldpath: metadata.name
-  objref:
-    name: ingress-nginx-custom-headers
-    apiVersion: v1
-    kind: ConfigMap
-- name: HEADERS_CONFIGMAP_NAMESPACE
-  fieldref:
-    fieldpath: metadata.namespace
-  objref:
-    name: ingress-nginx-custom-headers
-    apiVersion: v1
-    kind: ConfigMap

@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+configMapGenerator:
+# https://kubernetes.github.io/ingress-nginx/deploy/hardening-guide/
+- name: ingress-nginx-controller
+  behavior: merge
+  literals:
+  - enable-modsecurity="true"
+  # 2.4 Network Configuration
+  - keep-alive="10s"
+  # 2.5 Network Configuration
+  - server-tokens="false"
+  # 4.1 TLS / SSL Configuration
+  - ssl-ciphers=ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+  - ssl-protocols=TLSv1.2 TLSv1.3
+  - enable-ocsp="true"
+  - hsts-include-subdomains="true"
+  - hsts-max-age="31536000"
+  - hsts-preload="true"
+  - hsts="true"
+  # 5.2 Request Limits
+  - client-header-timeout="15s"
+  - client-body-timeout="30s"
+  - large-client-header-buffers="4 8k"
+- name: ingress-nginx-custom-headers
+  behavior: merge
+  literals:
+  # 5.3 Browser Security
+  - X-Frame-Options="SAMEORIGIN"
+  - X-Content-Type-Options="nosniff"
+  - X-XSS-Protection="1; mode=block"
+  - Content-Security-Policy="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://themes.googleusercontent.com; object-src 'none'"
+  - Referrer-Policy=strict-origin-when-cross-origin
