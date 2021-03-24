@@ -3,7 +3,7 @@ metadata:
   name: ingress-nginx-controller
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "5"
-    service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "false" # {"$kpt-set":"aws.log-enabled"}
     service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: nlb-access-logs # {"$kpt-set":"aws.log-bucket"}
     service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "owner=operations@appdat.jsc.nasa.gov" # {"$kpt-set":"aws.resource-tags"}
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
