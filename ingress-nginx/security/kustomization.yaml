@@ -17,7 +17,6 @@ configMapGenerator:
   - ssl-protocols=TLSv1.2 TLSv1.3
   - ssl-prefer-server-ciphers="false"
   - use-http2="true"
-  - enable-ocsp="true"
   - hsts-include-subdomains="true"
   - hsts-max-age="31536000"
   - hsts-preload="true"
