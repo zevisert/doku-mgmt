@@ -1,0 +1,46 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+configurations:
+- configmap-var-refs.yaml
+configMapGenerator:
+# https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+- name: ingress-nginx-controller
+  behavior: create
+  literals:
+  - add-headers=$(HEADERS_CONFIGMAP_NAMESPACE)/$(HEADERS_CONFIGMAP_NAME)
+  - enable-vts-status="true"
+  - generate-request-id="true"
+- name: ingress-nginx-custom-headers
+  behavior: create
+  literals:
+  - X-Powered-By="appdat"
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/4
+      value: --configmap=$(POD_NAMESPACE)/$(CUSTOM_CONFIGMAP_NAME)
+  target:
+    kind: Deployment
+    name: ingress-nginx-controller
+vars:
+- name: CUSTOM_CONFIGMAP_NAME
+  fieldref:
+    fieldpath: metadata.name
+  objref:
+    name: ingress-nginx-controller
+    apiVersion: v1
+    kind: ConfigMap
+- name: HEADERS_CONFIGMAP_NAME
+  fieldref:
+    fieldpath: metadata.name
+  objref:
+    name: ingress-nginx-custom-headers
+    apiVersion: v1
+    kind: ConfigMap
+- name: HEADERS_CONFIGMAP_NAMESPACE
+  fieldref:
+    fieldpath: metadata.namespace
+  objref:
+    name: ingress-nginx-custom-headers
+    apiVersion: v1
+    kind: ConfigMap
