@@ -5,9 +5,9 @@ metadata:
 upstream:
   type: git
   git:
-    commit: 59922afae3331ee76e44dd93f26c6ea0b2309986
+    commit: ed5aee7659bdd9a5f018ef56ddd2de664b2d96e7
     repo: https://github.com/kubernetes/ingress-nginx
     directory: deploy/static/provider/cloud
-    ref: controller-v0.44.0
+    ref: controller-v0.45.0
 packageMetadata:
   shortDescription: NGINX Ingress Controller for Kubernetes
