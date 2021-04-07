@@ -40,8 +40,8 @@ openAPI:
           name: outputs.s3.bucket.key-format-subst
           pattern: S3_BUCKET_KEY_FORMAT="/%Y/%m/%d/${outputs.s3.bucket.name}-%Y%m%d%H%M-$UUID.log"
           values:
-          - marker: ${outputs.s3.bucket.key-format}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.s3.bucket.key-format'
+          - marker: ${outputs.s3.bucket.name}
+            ref: '#/definitions/io.k8s.cli.setters.outputs.s3.bucket.name'
     io.k8s.cli.setters.outputs.elasticsearch.host:
       x-k8s-cli:
         setter:
