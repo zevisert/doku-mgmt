@@ -9,7 +9,7 @@ configMapGenerator:
   - enable-owasp-modsecurity-crs="false"
   - modsecurity-transaction-id="$request_id"
   # 2.4 Network Configuration
-  - keep-alive="10s"
+  - keep-alive="10"
   # 2.5 Network Configuration
   - server-tokens="false"
   # 4.1 TLS / SSL Configuration
@@ -22,8 +22,8 @@ configMapGenerator:
   - hsts-preload="true"
   - hsts="true"
   # 5.2 Request Limits
-  - client-header-timeout="15s"
-  - client-body-timeout="30s"
+  - client-header-timeout="15"
+  - client-body-timeout="30"
   - large-client-header-buffers="4 8k"
 - name: ingress-nginx-custom-headers
   behavior: merge
