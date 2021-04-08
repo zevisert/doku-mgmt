@@ -10,13 +10,6 @@ components:
 patches:
 - patch: |-
     - op: replace
-      path: /spec/externalTrafficPolicy
-      value: Cluster
-  target:
-    kind: Service
-    name: ingress-nginx-controller
-- patch: |-
-    - op: replace
       path: /kind
       value: DaemonSet
   target:
