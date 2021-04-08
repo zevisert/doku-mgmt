@@ -8,7 +8,6 @@ configMapGenerator:
   behavior: merge
   literals:
   - add-headers=$(HEADERS_CONFIGMAP_NAMESPACE)/$(HEADERS_CONFIGMAP_NAME)
-  - enable-vts-status="true"
   - generate-request-id="true"
 - name: ingress-nginx-custom-headers
   behavior: create
