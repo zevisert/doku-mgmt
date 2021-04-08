@@ -5,7 +5,7 @@ configurations:
 configMapGenerator:
 # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
 - name: ingress-nginx-controller
-  behavior: create
+  behavior: merge
   literals:
   - add-headers=$(HEADERS_CONFIGMAP_NAMESPACE)/$(HEADERS_CONFIGMAP_NAME)
   - enable-vts-status="true"
@@ -14,22 +14,7 @@ configMapGenerator:
   behavior: create
   literals:
   - X-Powered-By="appdat"
-patches:
-- patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/args/4
-      value: --configmap=$(POD_NAMESPACE)/$(CUSTOM_CONFIGMAP_NAME)
-  target:
-    kind: Deployment
-    name: ingress-nginx-controller
 vars:
-- name: CUSTOM_CONFIGMAP_NAME
-  fieldref:
-    fieldpath: metadata.name
-  objref:
-    name: ingress-nginx-controller
-    apiVersion: v1
-    kind: ConfigMap
 - name: HEADERS_CONFIGMAP_NAME
   fieldref:
     fieldpath: metadata.name
