@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+configMapGenerator:
+# https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+- name: ingress-nginx-controller
+  behavior: merge
+  literals:
+  - use-geoip="false"
+  - use-geoip2="true"
+secretGenerator:
+- name: ingress-nginx-maxmind-license
+  behavior: create
+  literals:
+  - maxmind-license-key= # {"$kpt-set":"geoip2.maxmind-license-key-subst"}
+patches:
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: MAXMIND_LICENSE_KEY
+        valueFrom:
+          secretKeyRef:
+            name: ingress-nginx-maxmind-license
+            key: maxmind-license-key
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --maxmind-license-key=$(MAXMIND_LICENSE_KEY)
+  target:
+    kind: Deployment
+    name: ingress-nginx-controller

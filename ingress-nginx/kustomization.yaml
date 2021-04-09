@@ -5,6 +5,7 @@ resources:
 - upstream
 components:
 - custom-config
+- geoip2
 - json-logs
 - security
 patches:
