@@ -23,3 +23,17 @@ openAPI:
         setter:
           name: aws.log-enabled
           value: "false"
+    io.k8s.cli.setters.geoip2.maxmind-license-key:
+      x-k8s-cli:
+        setter:
+          name: geoip2.maxmind-license-key
+          value: ""
+          setBy: package-default
+    io.k8s.cli.substitutions.geoip2.maxmind-license-key-subst:
+      x-k8s-cli:
+        substitution:
+          name: geoip2.maxmind-license-key-subst
+          pattern: maxmind-license-key=${geoip2.maxmind-license-key}
+          values:
+          - marker: ${geoip2.maxmind-license-key}
+            ref: '#/definitions/io.k8s.cli.setters.geoip2.maxmind-license-key'
