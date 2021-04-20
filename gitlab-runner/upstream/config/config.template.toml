@@ -8,8 +8,8 @@
   allow_privilege_escalation = false
 
   cpu_limit = "3"
-  memory_limit = "1Gi"
-  # service_cpu_limit = "1"
+  # memory_limit = "1Gi"
+  service_cpu_limit = "3"
   # service_memory_limit = "1Gi"
   helper_cpu_limit = "500m"
   helper_memory_limit = "100Mi"
