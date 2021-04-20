@@ -1,8 +1,9 @@
 concurrent = 10
 check_interval = 30
 log_level = "info"
+log_format = "json"
 listen_address = ':9252'
 
 [[runners]]
-executor = "kubernetes"
-request_concurrency = 1
+  executor = "kubernetes"
+  request_concurrency = 1

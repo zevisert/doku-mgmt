@@ -1,31 +1,37 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-nameSuffix: -default # {"$kpt-set":"runner-name-suffix-subst"}
+namePrefix: default- # {"$kpt-set":"runner.name-suffix-subst"}
 images:
 - name: gitlab/gitlab-runner
-  newTag: alpine-v13.8.0 # {"$kpt-set":"runner-version-subst"}
+  newTag: alpine-v13.8.0 # {"$kpt-set":"runner.version-subst"}
+commonLabels:
+  app.kubernetes.io/component: gitlab-runner
+  app.kubernetes.io/managed-by: appdat/kpt-packages
+  app.kubernetes.io/name: default # {"$kpt-set":"runner.name"}
+  app.kubernetes.io/version: v13.8.0 # {"$kpt-set":"runner.version"}
+resources:
+- deployment.yaml
+- role-binding.yaml
+- role.yaml
+- service-account.yaml
 configMapGenerator:
 - name: gitlab-runner
   files:
   - config.toml=config/config.toml
   - config.template.toml=config/config.template.toml
   - check-live=config/check-live.sh
-  - configure=config/configure.sh
   - entrypoint=config/entrypoint.sh
   - pre-entrypoint-script=config/pre-entrypoint.sh
   - register-the-runner=config/register.sh
 - name: gitlab-runner-env
   literals:
-  - CI_SERVER_URL="https://appdat.jsc.nasa.gov" # {"$kpt-set":"gitlab-url-subst"}
-  - KUBERNETES_NAMESPACE="appdat-system" # {"$kpt-set":"runner-namespace-subst"}
-  - RUNNER_NAME="default" # {"$kpt-set":"runner-name-env-subst"}
+  - CI_SERVER_URL=https://appdat.jsc.nasa.gov # {"$kpt-set":"gitlab-url-subst"}
+  - KUBERNETES_NAMESPACE=appdat-system # {"$kpt-set":"runner.namespace-subst"}
+  - RUNNER_NAME=default # {"$kpt-set":"runner.name-env-subst"}
+  - RUNNER_LOCKED=false # {"$kpt-set":"runner.locked-subst"}
+  - RUNNER_TAG_LIST="" # {"$kpt-set":"runner.tags-subst"}
 secretGenerator:
 - name: gitlab-runner
-  literals:
-  - runner-registration-token=""
-  - runner-token=""
-resources:
-- deployment.yaml
-- role-binding.yaml
-- role.yaml
-- service-account.yaml
+- name: gitlab-runner-tokens
+  envs:
+  - config/tokens.env
