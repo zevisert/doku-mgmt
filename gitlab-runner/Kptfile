@@ -12,33 +12,17 @@ openAPI:
           name: runner.namespace
           value: appdat-system
           setBy: package-default
-    io.k8s.cli.substitutions.runner.namespace-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner.namespace-subst
-          pattern: KUBERNETES_NAMESPACE=${runner.namespace}
-          values:
-          - marker: ${runner.namespace}
-            ref: '#/definitions/io.k8s.cli.setters.runner.namespace'
-    io.k8s.cli.setters.gitlab-url:
+    io.k8s.cli.setters.runner.server:
       x-k8s-cli:
         setter:
-          name: gitlab-url
+          name: runner.server
           value: https://appdat.jsc.nasa.gov
           setBy: package-default
-    io.k8s.cli.substitutions.gitlab-url-subst:
-      x-k8s-cli:
-        substitution:
-          name: gitlab-url-subst
-          pattern: CI_SERVER_URL=${gitlab-url}
-          values:
-          - marker: ${gitlab-url}
-            ref: '#/definitions/io.k8s.cli.setters.gitlab-url'
     io.k8s.cli.setters.runner.version:
       x-k8s-cli:
         setter:
           name: runner.version
-          value: v13.8.0
+          value: v13.10.0
           setBy: package-default
     io.k8s.cli.substitutions.runner.version-subst:
       x-k8s-cli:
@@ -62,57 +46,33 @@ openAPI:
           values:
           - marker: ${runner.name}
             ref: '#/definitions/io.k8s.cli.setters.runner.name'
-    io.k8s.cli.substitutions.runner.name-env-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner.name-env-subst
-          pattern: RUNNER_NAME="${runner.name}"
-          values:
-          - marker: ${runner.name}
-            ref: '#/definitions/io.k8s.cli.setters.runner.name'
-    io.k8s.cli.setters.cache.bucket:
-      x-k8s-cli:
-        setter:
-          name: bucket
-          value: runner-cache
-          setBy: package-default
-    io.k8s.cli.substitutions.cache.bucket-subst:
-      x-k8s-cli:
-        substitution:
-          name: bucket-subst
-          pattern: CACHE_GCS_BUCKET_NAME="${bucket}"
-          values:
-          - marker: ${bucket}
-            ref: '#/definitions/io.k8s.cli.setters.cache.bucket'
     io.k8s.cli.setters.runner.locked:
       x-k8s-cli:
         setter:
           name: runner.locked
           enum:
-          - true
-          - false
+          - "true"
+          - "false"
           type: string
           value: "false"
           setBy: package-default
-    io.k8s.cli.substitutions.runner.locked-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner.locked-subst
-          pattern: RUNNER_LOCKED=${runner.locked}
-          values:
-          - marker: ${runner.locked}
-            ref: '#/definitions/io.k8s.cli.setters.runner.locked'
     io.k8s.cli.setters.runner.tags:
       x-k8s-cli:
         setter:
           name: runner.tags
-          value: ""
+          value: "kubernetes, cluster"
           setBy: package-default
-    io.k8s.cli.substitutions.runner.tags-subst:
+    io.k8s.cli.setters.runner.cache.bucket:
+      x-k8s-cli:
+        setter:
+          name: runner.cache.bucket
+          value: runner-cache
+          setBy: package-default
+    io.k8s.cli.substitutions.runner.cache.bucket-subst:
       x-k8s-cli:
         substitution:
-          name: runner.tags-subst
-          pattern: RUNNER_TAG_LIST="${runner.tags}"
+          name: runner.cache.bucket-subst
+          pattern: CACHE_GCS_BUCKET_NAME=${runner.cache.bucket}
           values:
-          - marker: ${runner.tags}
-            ref: '#/definitions/io.k8s.cli.setters.runner.tags'
+          - marker: ${runner.cache.bucket}
+            ref: '#/definitions/io.k8s.cli.setters.runner.cache.bucket'

@@ -7,7 +7,7 @@ configMapGenerator:
   - CACHE_TYPE=gcs
   - CACHE_SHARED=true
   - CACHE_PATH=runner
-  - CACHE_GCS_BUCKET_NAME="runner-cache" # {"$kpt-set":"cache.bucket-subst"}
+  - CACHE_GCS_BUCKET_NAME=runner-cache # {"$kpt-set":"runner.cache.bucket-subst"}
 secretGenerator:
 - name: gitlab-runner
   behavior: merge

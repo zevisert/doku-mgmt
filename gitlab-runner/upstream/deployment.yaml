@@ -20,6 +20,17 @@ spec:
         ports:
         - name: metrics
           containerPort: 9252
+        env:
+        - name: CI_SERVER_URL
+          value: https://appdat.jsc.nasa.gov # {"$kpt-set":"runner.server"}
+        - name: KUBERNETES_NAMESPACE
+          value: appdat-system # {"$kpt-set":"runner.namespace"}
+        - name: RUNNER_NAME
+          value: default # {"$kpt-set":"runner.name"}
+        - name: RUNNER_LOCKED
+          value: "false" # {"$kpt-set":"runner.locked"}
+        - name: RUNNER_TAG_LIST
+          value: "kubernetes, cluster" # {"$kpt-set":"runner.tags"}
         envFrom:
         - configMapRef:
             name: gitlab-runner-env
