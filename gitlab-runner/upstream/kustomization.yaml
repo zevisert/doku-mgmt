@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namePrefix: default- # {"$kpt-set":"runner.name-subst"}
 images:
-- name: gitlab/gitlab-runner
+- name: gitlab/gitlab-runner:alpine
   newTag: alpine-v13.10.0 # {"$kpt-set":"runner.version-subst"}
 commonLabels:
   app.kubernetes.io/component: gitlab-runner

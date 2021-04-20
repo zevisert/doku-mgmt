@@ -15,7 +15,7 @@ spec:
       serviceAccountName: gitlab-runner
       containers:
       - name: gitlab-runner
-        image: gitlab/gitlab-runner:alpine-v13.8.0
+        image: gitlab/gitlab-runner:alpine
         command: ["/bin/bash", "/scripts/entrypoint"]
         ports:
         - name: metrics

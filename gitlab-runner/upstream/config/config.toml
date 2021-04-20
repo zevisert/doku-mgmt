@@ -7,3 +7,8 @@ listen_address = ':9252'
 [[runners]]
   executor = "kubernetes"
   request_concurrency = 1
+  output_limit = 8192
+
+  # https://gitlab.com/gitlab-org/gitlab-runner/-/blob/master/docs/configuration/feature-flags.md#enable-feature-flag-in-runner-configuration
+  [runners.feature_flags]
+    FF_GITLAB_REGISTRY_HELPER_IMAGE = true
