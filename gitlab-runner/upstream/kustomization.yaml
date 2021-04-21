@@ -6,7 +6,7 @@ images:
   newTag: alpine-v13.10.0 # {"$kpt-set":"runner.version-subst"}
 commonLabels:
   app.kubernetes.io/component: gitlab-runner
-  app.kubernetes.io/managed-by: appdat/kpt-packages
+  app.kubernetes.io/managed-by: appdat
   app.kubernetes.io/name: default # {"$kpt-set":"runner.name"}
   app.kubernetes.io/version: v13.10.0 # {"$kpt-set":"runner.version"}
 resources:
