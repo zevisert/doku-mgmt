@@ -12,3 +12,5 @@ listen_address = ':9252'
   # https://docs.gitlab.com/runner/configuration/feature-flags.html
   [runners.feature_flags]
     FF_GITLAB_REGISTRY_HELPER_IMAGE = true
+    # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4119
+    FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY = true
