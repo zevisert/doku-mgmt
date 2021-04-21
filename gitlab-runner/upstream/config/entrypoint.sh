@@ -9,9 +9,7 @@ if [[ -f /secrets/accesskey && -f /secrets/secretkey ]]; then
   export CACHE_S3_SECRET_KEY=$(cat /secrets/secretkey)
 fi
 
-if [[ -f /secrets/gcs-applicaton-credentials-file ]]; then
-  export GOOGLE_APPLICATION_CREDENTIALS="/secrets/gcs-applicaton-credentials-file"
-elif [[ -f /secrets/gcs-application-credentials-file ]]; then
+if [[ -f /secrets/gcs-application-credentials-file ]]; then
   export GOOGLE_APPLICATION_CREDENTIALS="/secrets/gcs-application-credentials-file"
 else
   if [[ -f /secrets/gcs-access-id && -f /secrets/gcs-private-key ]]; then
@@ -24,14 +22,6 @@ fi
 if [[ -f /secrets/azure-account-name && -f /secrets/azure-account-key ]]; then
   export CACHE_AZURE_ACCOUNT_NAME=$(cat /secrets/azure-account-name)
   export CACHE_AZURE_ACCOUNT_KEY=$(cat /secrets/azure-account-key)
-fi
-
-if [[ -f /secrets/runner-registration-token ]]; then
-  export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)
-fi
-
-if [[ -f /secrets/runner-token ]]; then
-  export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
 fi
 
 # Register the runner

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: gitlab-runner
+        env:
+        - $patch: merge
+        - name: CACHE_TYPE
+          value: gcs
+        - name: CACHE_SHARED
+          value: "true"
+        - name: CACHE_PATH
+          value: runner
+        - name: CACHE_GCS_BUCKET_NAME
+          value: test # {"$kpt-set":"runner.cache.bucket"}

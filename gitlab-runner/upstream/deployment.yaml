@@ -3,111 +3,85 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitlab-runner
-  labels:
-    app: gitlab-runner
-    chart: gitlab-runner-0.25.0
-    release: "gitlab-runner"
-    heritage: "Helm"
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: gitlab-runner
   template:
     metadata:
-      labels:
-        app: gitlab-runner
-        chart: gitlab-runner-0.25.0
-        release: "gitlab-runner"
-        heritage: "Helm"
       annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '9252'
+        prometheus.io/port: "9252"
+        prometheus.io/scrape: "true"
     spec:
-      securityContext:
-        runAsUser: 100
-        fsGroup: 65533
       terminationGracePeriodSeconds: 3600
-      initContainers:
-      - name: configure
-        command: ['sh', '/config/configure']
-        image: gitlab/gitlab-runner:alpine-v13.8.0
-        imagePullPolicy: "IfNotPresent"
-        envFrom:
-        - configMapRef:
-            name: gitlab-runner-env
-        securityContext:
-          allowPrivilegeEscalation: false
-        volumeMounts:
-        - name: runner-secrets
-          mountPath: /secrets
-          readOnly: false
-        - name: scripts
-          mountPath: /config
-          readOnly: true
-        - name: init-runner-secrets
-          mountPath: /init-secrets
-          readOnly: true
-        resources: {}
       serviceAccountName: gitlab-runner
       containers:
       - name: gitlab-runner
-        image: gitlab/gitlab-runner:alpine-v13.8.0
-        imagePullPolicy: "IfNotPresent"
+        image: gitlab/gitlab-runner:alpine
+        command: ["/bin/bash", "/scripts/entrypoint"]
+        ports:
+        - name: metrics
+          containerPort: 9252
+        env:
+        - name: CI_SERVER_URL
+          value: https://appdat.jsc.nasa.gov # {"$kpt-set":"runner.server"}
+        - name: KUBERNETES_NAMESPACE
+          value: appdat-system # {"$kpt-set":"runner.namespace"}
+        - name: RUNNER_NAME
+          value: default # {"$kpt-set":"runner.name"}
+        - name: RUNNER_LOCKED
+          value: "false" # {"$kpt-set":"runner.locked"}
+        - name: RUNNER_TAG_LIST
+          value: "kubernetes, cluster" # {"$kpt-set":"runner.tags"}
         envFrom:
-        - configMapRef:
-            name: gitlab-runner-env
-        securityContext:
-          allowPrivilegeEscalation: false
+        - secretRef:
+            name: gitlab-runner-tokens
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+        - name: secrets
+          mountPath: /secrets
+          readOnly: true
+        - name: scripts
+          mountPath: /scripts
+        - name: etc-gitlab-runner
+          mountPath: /home/gitlab-runner/.gitlab-runner
+        livenessProbe:
+          exec:
+            command: ["/bin/bash", "/scripts/check-live"]
+          failureThreshold: 3
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          exec:
+            command: ["/usr/bin/pgrep", "gitlab.*runner"]
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
         lifecycle:
           preStop:
             exec:
               command: ["/entrypoint", "unregister", "--all-runners"]
-        command: ["/bin/bash", "/scripts/entrypoint"]
-        livenessProbe:
-          exec:
-            command: ["/bin/bash", "/scripts/check-live"]
-          initialDelaySeconds: 60
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-        readinessProbe:
-          exec:
-            command: ["/usr/bin/pgrep", "gitlab.*runner"]
-          initialDelaySeconds: 10
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-        ports:
-        - name: metrics
-          containerPort: 9252
-        volumeMounts:
-        - name: runner-secrets
-          mountPath: /secrets
-        - name: etc-gitlab-runner
-          mountPath: /home/gitlab-runner/.gitlab-runner
-        - name: scripts
-          mountPath: /scripts
-        resources: {}
+        imagePullPolicy: "IfNotPresent"
+        securityContext:
+          allowPrivilegeEscalation: false
       volumes:
-      - name: runner-secrets
-        emptyDir:
-          medium: "Memory"
-      - name: etc-gitlab-runner
-        emptyDir:
-          medium: "Memory"
-      - name: init-runner-secrets
-        projected:
-          sources:
-          - secret:
-              name: gitlab-runner
-              items:
-              - key: runner-registration-token
-                path: runner-registration-token
-              - key: runner-token
-                path: runner-token
+      - name: secrets
+        secret:
+          secretName: gitlab-runner
       - name: scripts
         configMap:
           name: gitlab-runner
+      - name: etc-gitlab-runner
+        emptyDir:
+          medium: "Memory"
+      securityContext:
+        fsGroup: 65533
+        runAsUser: 100

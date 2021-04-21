@@ -1,1 +1,18 @@
 # see https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+[runners.kubernetes]
+  image = "ubuntu:16.04"
+
+  poll_timeout = 180
+
+  privileged = false
+  allow_privilege_escalation = false
+
+  cpu_limit = "3"
+  # memory_limit = "1Gi"
+  service_cpu_limit = "3"
+  # service_memory_limit = "1Gi"
+  helper_cpu_limit = "500m"
+  helper_memory_limit = "100Mi"
+
+  [runners.kubernetes.pod_annotations]
+    "cluster-autoscaler.kubernetes.io/safe-to-evict" = "false"
