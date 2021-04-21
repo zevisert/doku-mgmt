@@ -16,4 +16,4 @@ spec:
         - name: CACHE_PATH
           value: runner
         - name: CACHE_GCS_BUCKET_NAME
-          value: test # {"$kpt-set":"runner.cache.bucket"}
+          value: runner-cache # {"$kpt-set":"runner.cache.bucket"}

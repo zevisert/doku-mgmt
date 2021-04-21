@@ -27,6 +27,8 @@ spec:
           value: appdat-system # {"$kpt-set":"runner.namespace"}
         - name: RUNNER_NAME
           value: default # {"$kpt-set":"runner.name"}
+        - name: RUNNER_EXECUTOR
+          value: kubernetes
         - name: RUNNER_LOCKED
           value: "false" # {"$kpt-set":"runner.locked"}
         - name: RUNNER_TAG_LIST
