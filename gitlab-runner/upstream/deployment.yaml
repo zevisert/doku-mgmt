@@ -32,8 +32,6 @@ spec:
         - name: RUNNER_TAG_LIST
           value: "kubernetes, cluster" # {"$kpt-set":"runner.tags"}
         envFrom:
-        - configMapRef:
-            name: gitlab-runner-env
         - secretRef:
             name: gitlab-runner-tokens
         resources:

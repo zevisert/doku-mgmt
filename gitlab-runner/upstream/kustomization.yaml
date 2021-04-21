@@ -23,7 +23,6 @@ configMapGenerator:
   - entrypoint=config/entrypoint.sh
   - pre-entrypoint-script=config/pre-entrypoint.sh
   - register-the-runner=config/register.sh
-- name: gitlab-runner-env
 secretGenerator:
 - name: gitlab-runner
 - name: gitlab-runner-tokens

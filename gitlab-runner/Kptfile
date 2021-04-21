@@ -68,11 +68,3 @@ openAPI:
           name: runner.cache.bucket
           value: runner-cache
           setBy: package-default
-    io.k8s.cli.substitutions.runner.cache.bucket-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner.cache.bucket-subst
-          pattern: CACHE_GCS_BUCKET_NAME=${runner.cache.bucket}
-          values:
-          - marker: ${runner.cache.bucket}
-            ref: '#/definitions/io.k8s.cli.setters.runner.cache.bucket'
