@@ -4,6 +4,7 @@ configurations:
 - configurations.yaml
 secretGenerator:
 - name: letsencrypt-prod
+  namespace: appdat-system
   behavior: create
   files:
   - tls.key=secrets/tls.key

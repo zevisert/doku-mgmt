@@ -3,6 +3,7 @@ kind: Component
 secretGenerator:
 - name: nginx-default-certificate
   behavior: create
+  namespace: appdat-system
   type: "kubernetes.io/tls"
   files:
   - secrets/tls.key
