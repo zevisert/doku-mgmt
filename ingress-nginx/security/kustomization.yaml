@@ -5,9 +5,7 @@ configMapGenerator:
 - name: ingress-nginx-controller
   behavior: merge
   literals:
-  - enable-modsecurity="true"
-  - enable-owasp-modsecurity-crs="false"
-  - modsecurity-transaction-id="$request_id"
+  - block-cidrs="218.85.0.0/16, 123.113.128.0/18, 140.112.0.0/12, 221.127.192.0/18, 119.120.0.0/13, 218.89.0.0/16, 117.80.0.0/13, 121.224.0.0/12, 113.93.104.0/22, 42.100.0.0/15, 124.16.189.0/24"
   # 2.4 Network Configuration
   - keep-alive="10"
   # 2.5 Network Configuration

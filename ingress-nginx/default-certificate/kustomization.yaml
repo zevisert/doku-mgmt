@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+secretGenerator:
+- name: nginx-default-certificate
+  behavior: create
+  type: "kubernetes.io/tls"
+  files:
+  - secrets/tls.key
+  - secrets/tls.crt
+patches:
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --default-ssl-certificate=$(DEFAULT_CERT_SECRET_NAMESPACE)/$(DEFAULT_CERT_SECRET_NAME)
+  target:
+    kind: Deployment
+    name: ingress-nginx-controller
+vars:
+- name: DEFAULT_CERT_SECRET_NAME
+  fieldref:
+    fieldpath: metadata.name
+  objref:
+    name: nginx-default-certificate
+    apiVersion: v1
+    kind: Secret
+- name: DEFAULT_CERT_SECRET_NAMESPACE
+  fieldref:
+    fieldpath: metadata.namespace
+  objref:
+    name: nginx-default-certificate
+    apiVersion: v1
+    kind: Secret
+

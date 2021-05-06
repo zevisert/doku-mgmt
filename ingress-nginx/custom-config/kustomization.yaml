@@ -9,6 +9,7 @@ configMapGenerator:
   literals:
   - add-headers=$(HEADERS_CONFIGMAP_NAMESPACE)/$(HEADERS_CONFIGMAP_NAME)
   - generate-request-id="true"
+  - server-snippet="if ($server_name = "_") { return 444; }"
 - name: ingress-nginx-custom-headers
   behavior: create
   literals:
