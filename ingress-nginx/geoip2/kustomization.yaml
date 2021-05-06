@@ -25,6 +25,9 @@ patches:
     - op: add
       path: /spec/template/spec/containers/0/args/-
       value: --maxmind-license-key=$(MAXMIND_LICENSE_KEY)
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --maxmind-edition-ids=GeoLite2-City,GeoLite2-ASN,GeoLite2-Country
   target:
     kind: Deployment
     name: ingress-nginx-controller
