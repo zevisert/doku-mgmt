@@ -10,13 +10,13 @@
 
     cpu_limit = "3"
     cpu_request = "250m"
-    memory_limit = "2Gi"
+    memory_limit = "3Gi"
     memory_request = "100Mi"
 
     service_cpu_limit = "3"
     service_cpu_request = "250m"
-    service_memory_limit = "2Gi"
-    service_memory_request = "50Mi"
+    service_memory_limit = "3Gi"
+    service_memory_request = "100Mi"
 
     helper_cpu_limit = "500m"
     helper_cpu_request = "100m"
