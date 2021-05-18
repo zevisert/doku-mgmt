@@ -6,6 +6,7 @@ resources:
 components:
 - custom-config
 - geoip2
+- job-ttl
 - json-logs
 - security
 patches:
