@@ -20,9 +20,11 @@ configMapGenerator:
   - config.toml=config/config.toml
   - config.template.toml=config/config.template.toml
   - check-live=config/check-live.sh
+  - check-ready=config/check-ready.sh
   - entrypoint=config/entrypoint.sh
-  - pre-entrypoint-script=config/pre-entrypoint.sh
-  - register-the-runner=config/register.sh
+  - pre-entrypoint=config/pre-entrypoint.sh
+  - register=config/register.sh
+  - unregister=config/unregister.sh
 secretGenerator:
 - name: gitlab-runner
 - name: gitlab-runner-tokens

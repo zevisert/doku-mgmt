@@ -25,12 +25,12 @@ if [[ -f /secrets/azure-account-name && -f /secrets/azure-account-key ]]; then
 fi
 
 # Register the runner
-if ! sh /scripts/register-the-runner; then
+if ! bash /scripts/register; then
   exit 1
 fi
 
 # Run pre-entrypoint-script
-if ! bash /scripts/pre-entrypoint-script; then
+if ! bash /scripts/pre-entrypoint; then
   exit 1
 fi
 

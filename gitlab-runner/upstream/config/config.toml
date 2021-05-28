@@ -10,7 +10,16 @@ listen_address = ':9252'
   output_limit = 8192
 
   # https://docs.gitlab.com/runner/configuration/feature-flags.html
-  [runners.feature_flags]
-    FF_GITLAB_REGISTRY_HELPER_IMAGE = true
-    # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4119
-    FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY = true
+  environment = [
+    "FF_ENABLE_BASH_EXIT_CODE_CHECK=true",
+    "FF_GITLAB_REGISTRY_HELPER_IMAGE=true",
+    "FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY=false",
+    "FF_USE_FASTZIP=true"
+  ]
+
+  # TODO: not sure why this didn't work
+  # [runners.feature_flags]
+  #   FF_ENABLE_BASH_EXIT_CODE_CHECK = true
+  #   FF_GITLAB_REGISTRY_HELPER_IMAGE = true
+  #   FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY = false
+  #   FF_USE_FASTZIP = true
