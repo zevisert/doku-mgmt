@@ -1,5 +1,5 @@
 #!/bin/bash
-MAX_REGISTER_ATTEMPTS=30
+MAX_REGISTER_ATTEMPTS=5
 
 for i in $(seq 1 "${MAX_REGISTER_ATTEMPTS}"); do
   echo "Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}"

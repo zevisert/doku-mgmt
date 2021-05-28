@@ -17,7 +17,7 @@ listen_address = ':9252'
     "FF_USE_FASTZIP=true"
   ]
 
-  # TODO: not sure why this
+  # TODO: not sure why this didn't work
   # [runners.feature_flags]
   #   FF_ENABLE_BASH_EXIT_CODE_CHECK = true
   #   FF_GITLAB_REGISTRY_HELPER_IMAGE = true
