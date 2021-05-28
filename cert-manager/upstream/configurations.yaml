@@ -10,17 +10,6 @@ nameReference:
     group: cert-manager.io
     version: v1
     path: spec/acme/privateKeySecretRef/name
-- kind: Service
-  version: v1
-  fieldSpecs:
-  - kind: CustomResourceDefinition
-    group: apiextensions.k8s.io
-    path: spec/conversion/webhook/clientConfig/service/name
-namespace:
-- kind: CustomResourceDefinition
-  group: apiextensions.k8s.io
-  path: spec/conversion/webhook/clientConfig/service/namespace
-  create: true
 varReference:
 - path: webhooks/namespaceSelector/matchExpressions/values
   kind: ValidatingWebhookConfiguration
