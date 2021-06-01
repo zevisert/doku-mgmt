@@ -16,13 +16,6 @@ patches:
   target:
     kind: DaemonSet
     name: ingress-nginx-controller
-- patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/args/-
-      value: --default-ssl-certificate=$(DEFAULT_CERT_SECRET_NAMESPACE)/$(DEFAULT_CERT_SECRET_NAME)
-  target:
-    kind: Deployment
-    name: ingress-nginx-controller
 vars:
 - name: DEFAULT_CERT_SECRET_NAME
   fieldref:

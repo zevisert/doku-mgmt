@@ -17,10 +17,3 @@ patches:
   target:
     kind: Service
     name: ingress-nginx-controller
-- patch: |-
-    - op: replace
-      path: /kind
-      value: DaemonSet
-  target:
-    kind: Deployment
-    name: ingress-nginx-controller

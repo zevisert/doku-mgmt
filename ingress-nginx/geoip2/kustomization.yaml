@@ -29,5 +29,5 @@ patches:
       path: /spec/template/spec/containers/0/args/-
       value: --maxmind-edition-ids=GeoLite2-City,GeoLite2-ASN,GeoLite2-Country
   target:
-    kind: Deployment
+    kind: DaemonSet
     name: ingress-nginx-controller
