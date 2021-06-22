@@ -1,5 +1,21 @@
 # APPDAT KPT Packages
 
+## Contributing
+
+### Upgrading Packages
+
+```sh
+scripts/update.sh <package> <version>
+
+# examples:
+
+scripts/update.sh cert-manager 1.3.0
+scripts/update.sh elastic-cloud 1.6.0
+scripts/update.sh ingress-nginx 0.45.0
+```
+
+<!-- TODO: following doc is irrelevant until we switch back to using agentk
+
 ## Building Your Agent Config Project
 
 ```sh
@@ -88,3 +104,4 @@ using [`kpt pkg update`](https://googlecontainertools.github.io/kpt/reference/pk
 ```sh
 kpt pkg update cert-manager@master --strategy=resource-merge
 ```
+-->
