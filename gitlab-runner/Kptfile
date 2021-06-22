@@ -22,7 +22,7 @@ openAPI:
       x-k8s-cli:
         setter:
           name: runner.version
-          value: v13.12.0
+          value: v14.0.0
           setBy: package-default
           isSet: true
     io.k8s.cli.substitutions.runner.version-subst:
