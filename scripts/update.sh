@@ -65,6 +65,15 @@ EOF
   update_custom "$UPDATE_DIR" "elastic-cloud/operator"
 }
 
+gitlab_runner() {
+  if [[ -z "$1" ]]; then
+    echo "version argument is required!"
+    exit 1
+  fi
+
+  kpt cfg set "gitlab-runner" runner.version "v$1" --set-by package-default >/dev/null
+}
+
 ingress_nginx() {
   if [[ -z "$1" ]]; then
     echo "version argument is required!"
@@ -92,6 +101,7 @@ case "$1" in
 
   cert-manager) cert_manager "${@:2}" ;;
   elastic-cloud) elastic_cloud "${@:2}" ;;
+  gitlab-runner) gitlab_runner "${@:2}" ;;
   ingress-nginx) ingress_nginx "${@:2}" ;;
   kube-state-metrics) kube_state_metrics "${@:2}" ;;
 
