@@ -2,6 +2,18 @@
 
 set -e
 
+## utility functions
+
+# shellcheck disable=SC2120
+pushd() {
+  command pushd "$@" >/dev/null
+}
+
+# shellcheck disable=SC2120
+popd() {
+  command popd "$@" >/dev/null
+}
+
 update_custom() {
   UPDATE_DIR="$1"
   OUTPUT_DIR="$2"
@@ -13,7 +25,7 @@ update_custom() {
   kustomize build --enable-helm "$UPDATE_DIR" > "$OUTPUT_DIR/deploy.yaml"
 
   pushd "$OUTPUT_DIR"
-  kpt cfg fmt .
+  kpt cfg fmt . >/dev/null
   kustomize create --autodetect
   popd
 }
@@ -37,7 +49,7 @@ helmCharts:
 EOF
   fi
 
-  update_custom "$UPDATE_DIR" "cert-manager/upstream/helm" > /dev/null
+  update_custom "$UPDATE_DIR" "cert-manager/upstream/helm"
 }
 
 elastic_cloud() {
@@ -50,7 +62,7 @@ resources:
 EOF
   fi
 
-  update_custom "$UPDATE_DIR" "elastic-cloud/operator" > /dev/null
+  update_custom "$UPDATE_DIR" "elastic-cloud/operator"
 }
 
 ingress_nginx() {
@@ -62,11 +74,26 @@ ingress_nginx() {
   update_kpt "ingress-nginx/upstream" "controller-v$1"
 }
 
+kube_state_metrics() {
+  if [[ -z "$1" ]]; then
+    echo "version argument is required!"
+    exit 1
+  fi
+
+  update_kpt "kube-state-metrics/upstream" "v$1"
+
+  pushd "kube-state-metrics"
+  kustomize edit remove resource upstream/*
+  kustomize edit add resource upstream/*.yaml
+  popd
+}
+
 case "$1" in
 
   cert-manager) cert_manager "${@:2}" ;;
   elastic-cloud) elastic_cloud "${@:2}" ;;
   ingress-nginx) ingress_nginx "${@:2}" ;;
+  kube-state-metrics) kube_state_metrics "${@:2}" ;;
 
   *) echo "no auto-update script available for '$1'" && exit 1 ;;
 esac
