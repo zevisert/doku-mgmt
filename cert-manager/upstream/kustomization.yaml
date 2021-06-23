@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
 - helm
 configurations:
-- configurations.yaml
+- ../kustomizeconfig/name-refs.config.yaml
+- ../kustomizeconfig/var-refs.config.yaml
 patches:
 - patch: |-
     - op: replace

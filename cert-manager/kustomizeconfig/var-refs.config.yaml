@@ -1,0 +1,3 @@
+varReference:
+- path: webhooks/namespaceSelector/matchExpressions/values
+  kind: ValidatingWebhookConfiguration
