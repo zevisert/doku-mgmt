@@ -1,71 +1,10 @@
-apiVersion: kpt.dev/v1alpha1
+apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: gitlab-runner
-packageMetadata:
-  shortDescription: GitLab Runner (https://gitlab.com/gitlab-org/gitlab-runner)
-openAPI:
-  definitions:
-    io.k8s.cli.setters.runner.namespace:
-      x-k8s-cli:
-        setter:
-          name: runner.namespace
-          value: appdat-system
-          setBy: package-default
-    io.k8s.cli.setters.runner.server:
-      x-k8s-cli:
-        setter:
-          name: runner.server
-          value: https://appdat.jsc.nasa.gov
-          setBy: package-default
-    io.k8s.cli.setters.runner.version:
-      x-k8s-cli:
-        setter:
-          name: runner.version
-          value: v13.12.0
-          setBy: package-default
-          isSet: true
-    io.k8s.cli.substitutions.runner.version-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner.version-subst
-          pattern: alpine-${runner.version}
-          values:
-          - marker: ${runner.version}
-            ref: '#/definitions/io.k8s.cli.setters.runner.version'
-    io.k8s.cli.setters.runner.name:
-      x-k8s-cli:
-        setter:
-          name: runner.name
-          value: default
-          setBy: package-default
-    io.k8s.cli.substitutions.runner.name-subst:
-      x-k8s-cli:
-        substitution:
-          name: runner.name-subst
-          pattern: ${runner.name}-
-          values:
-          - marker: ${runner.name}
-            ref: '#/definitions/io.k8s.cli.setters.runner.name'
-    io.k8s.cli.setters.runner.locked:
-      x-k8s-cli:
-        setter:
-          name: runner.locked
-          enum:
-          - "true"
-          - "false"
-          type: string
-          value: "false"
-          setBy: package-default
-    io.k8s.cli.setters.runner.tags:
-      x-k8s-cli:
-        setter:
-          name: runner.tags
-          value: "kubernetes, cluster"
-          setBy: package-default
-    io.k8s.cli.setters.runner.cache.bucket:
-      x-k8s-cli:
-        setter:
-          name: runner.cache.bucket
-          value: runner-cache
-          setBy: package-default
+info:
+  description: GitLab Runner (https://gitlab.com/gitlab-org/gitlab-runner)
+pipeline:
+  mutators:
+  - image: gcr.io/kpt-fn/apply-setters:v0.1
+    configPath: setters.yaml

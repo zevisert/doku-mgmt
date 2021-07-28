@@ -1,32 +1,10 @@
-apiVersion: kpt.dev/v1alpha1
+apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: cert-manager
-packageMetadata:
-  shortDescription: Automatically provision and manage TLS certificates in Kubernetes
-openAPI:
-  definitions:
-    io.k8s.cli.setters.default-issuer.email:
-      x-k8s-cli:
-        setter:
-          name: default-issuer.email
-          value: operations@appdat.jsc.nasa.gov
-          setBy: package-default
-    io.k8s.cli.setters.default-issuer.server:
-      x-k8s-cli:
-        setter:
-          name: default-issuer.server
-          value: https://acme-v02.api.letsencrypt.org/directory
-          setBy: package-default
-    io.k8s.cli.setters.default-issuer.preferredChain:
-      x-k8s-cli:
-        setter:
-          name: default-issuer.preferredChain
-          value: ISRG Root X1
-          setBy: package-default
-    io.k8s.cli.setters.default-issuer.ingressClass:
-      x-k8s-cli:
-        setter:
-          name: default-issuer.ingressClass
-          value: nginx
-          setBy: package-default
+info:
+  description: Automatically provision and manage TLS certificates in Kubernetes
+pipeline:
+  mutators:
+  - image: gcr.io/kpt-fn/apply-setters:v0.1
+    configPath: setters.yaml

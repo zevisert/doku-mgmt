@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: setters
+data:
+  aws.role-arn: ""
+  outputs.elasticsearch.aws.auth: "Off"
+  outputs.elasticsearch.aws.region: us-gov-west-1
+  outputs.elasticsearch.host: elasticsearch.example.com
+  outputs.s3.bucket.name: access-logs
+  outputs.s3.bucket.region: us-gov-west-1

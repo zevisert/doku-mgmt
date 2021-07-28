@@ -4,12 +4,12 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    email: operations@appdat.jsc.nasa.gov # {"$kpt-set":"default-issuer.email"}
-    server: https://acme-v02.api.letsencrypt.org/directory # {"$kpt-set":"default-issuer.server"}
-    preferredChain: "ISRG Root X1" # {"$kpt-set":"default-issuer.preferredChain"}
+    email: operations@appdat.jsc.nasa.gov # kpt-set: ${default-issuer.email}
+    server: https://acme-v02.api.letsencrypt.org/directory # kpt-set: ${default-issuer.server}
+    preferredChain: "ISRG Root X1" # kpt-set: ${default-issuer.preferredChain}
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
     - http01:
         ingress:
-          class: nginx # {"$kpt-set":"default-issuer.ingressClass"}
+          class: nginx # kpt-set: ${default-issuer.ingressClass}

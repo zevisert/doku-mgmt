@@ -1,11 +1,19 @@
-apiVersion: kpt.dev/v1alpha1
+apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: kube-state-metrics
 upstream:
   type: git
   git:
-    commit: 5d0222d73de6a0dcbba8c9149bbebc6ac37ee217
     repo: https://github.com/kubernetes/kube-state-metrics
     directory: /examples/standard
     ref: v2.1.0
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/kubernetes/kube-state-metrics
+    directory: /examples/standard
+    ref: v2.1.0
+    commit: 5d0222d73de6a0dcbba8c9149bbebc6ac37ee217
+pipeline: {}

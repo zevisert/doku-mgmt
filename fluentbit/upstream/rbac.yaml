@@ -3,7 +3,7 @@ kind: ServiceAccount
 metadata:
   name: fluentbit
   annotations:
-    eks.amazonaws.com/role-arn: "" # {"$kpt-set":"aws.role-arn"}
+    eks.amazonaws.com/role-arn: "" # kpt-set: ${aws.role-arn}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole

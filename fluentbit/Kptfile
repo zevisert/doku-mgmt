@@ -1,96 +1,10 @@
-apiVersion: kpt.dev/v1alpha1
+apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: fluentbit
-packageMetadata:
-  shortDescription: fluentbit log processing and aggregation
-openAPI:
-  definitions:
-    io.k8s.cli.setters.outputs.s3.bucket.name:
-      x-k8s-cli:
-        setter:
-          name: outputs.s3.bucket.name
-          value: access-logs
-          setBy: package-default
-    io.k8s.cli.substitutions.outputs.s3.bucket.name-subst:
-      x-k8s-cli:
-        substitution:
-          name: outputs.s3.bucket.name-subst
-          pattern: S3_BUCKET_NAME=${outputs.s3.bucket.name}
-          values:
-          - marker: ${outputs.s3.bucket.name}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.s3.bucket.name'
-    io.k8s.cli.setters.outputs.s3.bucket.region:
-      x-k8s-cli:
-        setter:
-          name: outputs.s3.bucket.region
-          value: us-gov-west-1
-          setBy: package-default
-    io.k8s.cli.substitutions.outputs.s3.bucket.region-subst:
-      x-k8s-cli:
-        substitution:
-          name: outputs.s3.bucket.region-subst
-          pattern: S3_BUCKET_REGION=${outputs.s3.bucket.region}
-          values:
-          - marker: ${outputs.s3.bucket.region}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.s3.bucket.region'
-    io.k8s.cli.substitutions.outputs.s3.bucket.key-format-subst:
-      x-k8s-cli:
-        substitution:
-          name: outputs.s3.bucket.key-format-subst
-          pattern: S3_BUCKET_KEY_FORMAT="/%Y/%m/%d/${outputs.s3.bucket.name}-%Y%m%d%H%M-$UUID.log"
-          values:
-          - marker: ${outputs.s3.bucket.name}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.s3.bucket.name'
-    io.k8s.cli.setters.outputs.elasticsearch.host:
-      x-k8s-cli:
-        setter:
-          name: outputs.elasticsearch.host
-          value: elasticsearch.example.com
-          setBy: package-default
-    io.k8s.cli.substitutions.outputs.elasticsearch.host-subst:
-      x-k8s-cli:
-        substitution:
-          name: outputs.elasticsearch.host-subst
-          pattern: ELASTICSEARCH_HOST=${outputs.elasticsearch.host}
-          values:
-          - marker: ${outputs.elasticsearch.host}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.elasticsearch.host'
-    io.k8s.cli.setters.outputs.elasticsearch.aws.region:
-      x-k8s-cli:
-        setter:
-          name: outputs.elasticsearch.aws.region
-          value: us-gov-west-1
-          setBy: package-default
-    io.k8s.cli.substitutions.outputs.elasticsearch.aws.region-subst:
-      x-k8s-cli:
-        substitution:
-          name: outputs.elasticsearch.aws.region-subst
-          pattern: ELASTICSEARCH_AWS_REGION=${outputs.elasticsearch.aws.region}
-          values:
-          - marker: ${outputs.elasticsearch.aws.region}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.elasticsearch.aws.region'
-    io.k8s.cli.setters.outputs.elasticsearch.aws.auth:
-      enum:
-      - "On"
-      - "Off"
-      type: string
-      x-k8s-cli:
-        setter:
-          name: outputs.elasticsearch.aws.auth
-          value: "Off"
-          setBy: package-default
-    io.k8s.cli.substitutions.outputs.elasticsearch.aws.auth-subst:
-      x-k8s-cli:
-        substitution:
-          name: outputs.elasticsearch.aws.auth-subst
-          pattern: ELASTICSEARCH_AWS_AUTH=${outputs.elasticsearch.aws.auth}
-          values:
-          - marker: ${outputs.elasticsearch.aws.auth}
-            ref: '#/definitions/io.k8s.cli.setters.outputs.elasticsearch.aws.auth'
-    io.k8s.cli.setters.aws.role-arn:
-      x-k8s-cli:
-        setter:
-          name: aws.role-arn
-          value: ""
-          setBy: package-default
+info:
+  description: fluentbit log processing and aggregation
+pipeline:
+  mutators:
+  - image: gcr.io/kpt-fn/apply-setters:v0.1
+    configPath: setters.yaml
