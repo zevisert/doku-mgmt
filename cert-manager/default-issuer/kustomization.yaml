@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 configurations:
-- ../kustomizeconfig/name-refs.config.yaml
+- https://appdat.jsc.nasa.gov/appdat/kpt-packages/-/raw/master/kustomizeconfig/cert-manager.yaml
 resources:
 - cluster-issuer.yaml
 patches:
@@ -11,15 +11,32 @@ patches:
       value: --default-issuer-name=$(DEFAULT_ISSUER_NAME)
     - op: add
       path: /spec/template/spec/containers/0/args/-
-      value: --default-issuer-kind=ClusterIssuer
+      value: --default-issuer-kind=$(DEFAULT_ISSUER_KIND)
   target:
     kind: Deployment
     name: cert-manager
-vars:
-- name: DEFAULT_ISSUER_NAME
-  fieldref:
-    fieldpath: metadata.name
-  objref:
-    name: letsencrypt-prod
-    apiVersion: cert-manager.io/v1
+replacements:
+- source:
     kind: ClusterIssuer
+    name: letsencrypt-prod
+    fieldPath: kind
+  targets:
+  - select:
+      kind: Deployment
+      name: cert-manager
+    fieldPaths:
+    - spec.template.spec.containers.[name=cert-manager].env.[name=DEFAULT_ISSUER_KIND].value
+    options:
+      create: true
+- source:
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+    fieldPath: metadata.name
+  targets:
+  - select:
+      kind: Deployment
+      name: cert-manager
+    fieldPaths:
+    - spec.template.spec.containers.[name=cert-manager].env.[name=DEFAULT_ISSUER_NAME].value
+    options:
+      create: true
