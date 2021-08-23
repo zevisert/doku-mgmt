@@ -23,6 +23,11 @@ openAPI:
         setter:
           name: aws.log-enabled
           value: "false"
+    io.k8s.cli.setters.aws.internal-load-balancer:
+      x-k8s-cli:
+        setter:
+          name: aws.internal-load-balancer
+          value: "true"
     io.k8s.cli.setters.geoip2.maxmind-license-key:
       x-k8s-cli:
         setter:
