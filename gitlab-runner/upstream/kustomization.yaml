@@ -3,14 +3,14 @@ kind: Kustomization
 namePrefix: default- # {"$kpt-set":"runner.name-subst"}
 images:
 - name: registry.gitlab.com/gitlab-org/gitlab-runner:alpine
-  newTag: alpine-v14.0.0 # {"$kpt-set":"runner.version-subst"}
+  newTag: alpine-v14.3.0 # {"$kpt-set":"runner.version-subst"}
 commonLabels:
   app.kubernetes.io/component: gitlab-runner
   app.kubernetes.io/managed-by: appdat
   app.kubernetes.io/name: default # {"$kpt-set":"runner.name"}
 labels:
 - pairs:
-    app.kubernetes.io/version: v14.0.0 # {"$kpt-set":"runner.version"}
+    app.kubernetes.io/version: v14.3.0 # {"$kpt-set":"runner.version"}
 resources:
 - deployment.yaml
 - role-binding.yaml
