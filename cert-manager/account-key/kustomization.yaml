@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 configurations:
-- https://appdat.jsc.nasa.gov/appdat/kpt-packages/-/raw/master/kustomizeconfig/cert-manager.yaml
+- https://appdat.jsc.nasa.gov/appdat/kpt-packages/-/raw/rob-elastic-stack/kustomizeconfig/cert-manager.yaml
 secretGenerator:
 - name: letsencrypt-prod
   namespace: appdat-system

@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
 - helm
 configurations:
-- https://appdat.jsc.nasa.gov/appdat/kpt-packages/-/raw/master/kustomizeconfig/cert-manager.yaml
+- https://appdat.jsc.nasa.gov/appdat/kpt-packages/-/raw/rob-elastic-stack/kustomizeconfig/cert-manager.yaml
 - var-refs.config.yaml
 patches:
 - patch: |-
