@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: setters
+data:
+  aws.log-bucket: nlb-access-logs
+  aws.log-enabled: "false"
+  aws.internal-load-balancer: "true"
+  aws.resource-tags: owner=operations@appdat.jsc.nasa.gov
+  geoip2.maxmind-license-key: ""

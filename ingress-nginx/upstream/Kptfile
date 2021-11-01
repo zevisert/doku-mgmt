@@ -1,13 +1,21 @@
-apiVersion: kpt.dev/v1alpha1
+apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: ingress-nginx
 upstream:
   type: git
   git:
-    commit: ed5aee7659bdd9a5f018ef56ddd2de664b2d96e7
     repo: https://github.com/kubernetes/ingress-nginx
     directory: deploy/static/provider/cloud
     ref: controller-v0.45.0
-packageMetadata:
-  shortDescription: NGINX Ingress Controller for Kubernetes
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/kubernetes/ingress-nginx
+    directory: deploy/static/provider/cloud
+    ref: controller-v0.45.0
+    commit: ed5aee7659bdd9a5f018ef56ddd2de664b2d96e7
+info:
+  description: NGINX Ingress Controller for Kubernetes
+pipeline: {}

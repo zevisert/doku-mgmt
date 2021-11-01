@@ -8,13 +8,13 @@ commonLabels:
 configMapGenerator:
 - name: fluentbit-env
   literals:
-  - ELASTICSEARCH_HOST=elasticsearch.example.com # {"$kpt-set":"outputs.elasticsearch.host-subst"}
+  - ELASTICSEARCH_HOST=elasticsearch.example.com # kpt-set: ELASTICSEARCH_HOST=${outputs.elasticsearch.host}
   - ELASTICSEARCH_PORT=443
-  - ELASTICSEARCH_AWS_AUTH=Off # {"$kpt-set":"outputs.elasticsearch.aws.auth-subst"}
-  - ELASTICSEARCH_AWS_REGION=us-gov-west-1 # {"$kpt-set":"outputs.elasticsearch.aws.region-subst"}
-  - S3_BUCKET_NAME=access-logs # {"$kpt-set":"outputs.s3.bucket.name-subst"}
-  - S3_BUCKET_KEY_FORMAT="/%Y/%m/%d/access-logs-%Y%m%d%H%M-$UUID.log" # {"$kpt-set":"outputs.s3.bucket.key-format-subst"}
-  - S3_BUCKET_REGION=us-gov-west-1 # {"$kpt-set":"outputs.s3.bucket.region-subst"}
+  - ELASTICSEARCH_AWS_AUTH=Off # kpt-set: ELASTICSEARCH_AWS_AUTH=${outputs.elasticsearch.aws.auth}
+  - ELASTICSEARCH_AWS_REGION=us-gov-west-1 # kpt-set: ELASTICSEARCH_AWS_REGION=${outputs.elasticsearch.aws.region}
+  - S3_BUCKET_NAME=access-logs # kpt-set: S3_BUCKET_NAME=${outputs.s3.bucket.name}
+  - S3_BUCKET_KEY_FORMAT="/%Y/%m/%d/access-logs-%Y%m%d%H%M-$UUID.log" # kpt-set: S3_BUCKET_KEY_FORMAT="/%Y/%m/%d/${outputs.s3.bucket.name}-%Y%m%d%H%M-$UUID.log"
+  - S3_BUCKET_REGION=us-gov-west-1 # kpt-set: S3_BUCKET_REGION=${outputs.s3.bucket.region}
 - name: fluentbit-config
   files:
   - config/fluent-bit.conf

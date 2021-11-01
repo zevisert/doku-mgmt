@@ -1,22 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- helm/cainjector-deployment.yaml
-- helm/cainjector-rbac.yaml
-- helm/cainjector-serviceaccount.yaml
-- helm/crds.yaml
-- helm/deployment.yaml
-- helm/rbac.yaml
-- helm/serviceaccount.yaml
-- helm/service.yaml
-- helm/webhook-deployment.yaml
-- helm/webhook-mutating-webhook.yaml
-- helm/webhook-rbac.yaml
-- helm/webhook-serviceaccount.yaml
-- helm/webhook-service.yaml
-- helm/webhook-validating-webhook.yaml
+- helm
 configurations:
-- configurations.yaml
+- var-refs.config.yaml
 patches:
 - patch: |-
     - op: replace

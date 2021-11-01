@@ -23,7 +23,7 @@ configMapGenerator:
   # 5.2 Request Limits
   - client-header-timeout="15"
   - client-body-timeout="30"
-  - large-client-header-buffers="4 8k"
+  - large-client-header-buffers="4 128k"
 - name: ingress-nginx-custom-headers
   behavior: merge
   literals:
