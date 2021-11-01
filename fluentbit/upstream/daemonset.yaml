@@ -15,7 +15,7 @@ spec:
       hostNetwork: true
       containers:
       - name: fluentbit
-        image: fluent/fluent-bit:1.7.4-debug
+        image: fluent/fluent-bit:1.8.8
         envFrom:
         - configMapRef:
             name: fluentbit-env

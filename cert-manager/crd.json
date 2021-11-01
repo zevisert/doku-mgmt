@@ -1,0 +1,101 @@
+{
+  "io.cert-manager.v1.ClusterIssuer": {
+    "Schema": {
+      "description": "Cluster Issuer",
+      "properties": {
+        "apiVersion": {
+          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "type": "string"
+        },
+        "kind": {
+          "description": "Kind is a string value representing the REST resource this object represents.",
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "io.cert-manager.v1.ClusterIssuerSpec"
+        },
+        "status": {
+          "$ref": "io.cert-manager.v1.ClusterIssuerStatus"
+        }
+      }
+    },
+    "Dependencies": [
+      "io.cert-manager.v1.ClusterIssuerSpec",
+      "io.cert-manager.v1.ClusterIssuerStatus",
+      "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"
+    ]
+  },
+  "io.cert-manager.v1.ClusterIssuerList": {
+    "Schema": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "apiVersion": {
+          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "io.cert-manager.v1.ClusterIssuer"
+          }
+        },
+        "kind": {
+          "description": "Kind is a string value representing the REST resource this object represents.",
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"
+        }
+      }
+    },
+    "Dependencies": [
+      "io.cert-manager.v1.ClusterIssuer",
+      "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"
+    ]
+  },
+  "io.cert-manager.v1.Acme": {
+    "Schema": {
+      "description": "ClusterIssuerSpec defines the desired state of ClusterIssuer",
+      "properties": {
+        "privateKeySecretRef": {
+          "x-kubernetes-object-ref-api-version": "v1",
+          "x-kubernetes-object-ref-kind": "Secret",
+          "$ref": "k8s.io/api/core/v1.LocalObjectReference"
+        }
+      }
+    },
+    "Dependencies": [
+      "k8s.io/api/core/v1.LocalObjectReference"
+    ]
+  },
+  "io.cert-manager.v1.ClusterIssuerSpec": {
+    "Schema": {
+      "description": "ClusterIssuerSpec defines the desired state of ClusterIssuer",
+      "properties": {
+        "acme": {
+          "$ref": "io.cert-manager.v1.Acme"
+        },
+        "secretRef": {
+          "description": "If defined, use this secret for configuring the MYSQL_ROOT_PASSWORD",
+          "x-kubernetes-object-ref-api-version": "v1",
+          "x-kubernetes-object-ref-kind": "Secret",
+          "$ref": "k8s.io/api/core/v1.LocalObjectReference"
+        }
+      }
+    },
+    "Dependencies": [
+      "k8s.io/api/core/v1.LocalObjectReference"
+    ]
+  },
+  "io.cert-manager.v1.ClusterIssuerStatus": {
+    "Schema": {
+      "description": "ClusterIssuerStatus defines the observed state of ClusterIssuer"
+    },
+    "Dependencies": []
+  }
+}

@@ -5,14 +5,14 @@ patches:
 - patch: |-
     - op: add
       path: /spec/ttlSecondsAfterFinished
-      value: 0
+      value: 30
   target:
     kind: Job
     name: ingress-nginx-admission-create
 - patch: |-
     - op: add
       path: /spec/ttlSecondsAfterFinished
-      value: 0
+      value: 30
   target:
     kind: Job
     name: ingress-nginx-admission-patch
