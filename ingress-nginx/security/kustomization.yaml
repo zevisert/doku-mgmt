@@ -5,7 +5,7 @@ configMapGenerator:
 - name: ingress-nginx-controller
   behavior: merge
   literals:
-  - block-cidrs="218.85.0.0/16, 123.113.128.0/18, 140.112.0.0/12, 221.127.192.0/18, 119.120.0.0/13, 218.89.0.0/16, 117.80.0.0/13, 121.224.0.0/12, 113.93.104.0/22, 42.100.0.0/15, 124.16.189.0/24"
+  - block-cidrs="218.85.0.0/16, 123.113.128.0/18, 140.112.0.0/12, 221.127.192.0/18, 119.120.0.0/13, 218.89.0.0/16, 117.80.0.0/13, 121.224.0.0/12, 113.93.104.0/22, 42.100.0.0/15, 124.16.189.0/24, 140.249.240.0/20, 101.16.0.0/12, 111.193.128.0/18, 122.192.0.0/14"
   # 2.4 Network Configuration
   - keep-alive="10"
   # 2.5 Network Configuration
@@ -13,6 +13,7 @@ configMapGenerator:
   # 4.1 TLS / SSL Configuration
   - ssl-ciphers=ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
   - ssl-protocols=TLSv1.2 TLSv1.3
+  - enable-ocsp="true"
   - ssl-prefer-server-ciphers="false"
   - use-http2="true"
   - hsts-include-subdomains="true"
