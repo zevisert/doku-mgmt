@@ -7,15 +7,15 @@ upstream:
   git:
     repo: https://github.com/kubernetes/ingress-nginx
     directory: deploy/static/provider/do
-    ref: controller-v0.45.0
+    ref: controller-v1.1.0
   updateStrategy: resource-merge
 upstreamLock:
   type: git
   git:
     repo: https://github.com/kubernetes/ingress-nginx
     directory: deploy/static/provider/do
-    ref: controller-v0.45.0
-    commit: ed5aee7659bdd9a5f018ef56ddd2de664b2d96e7
+    ref: controller-v1.1.0
+    commit: 843a16a8f827fd84baab7c0d1ac5b40752b304b6
 info:
   description: NGINX Ingress Controller for Kubernetes
 pipeline: {}
