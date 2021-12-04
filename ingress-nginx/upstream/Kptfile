@@ -6,14 +6,14 @@ upstream:
   type: git
   git:
     repo: https://github.com/kubernetes/ingress-nginx
-    directory: deploy/static/provider/cloud
+    directory: deploy/static/provider/do
     ref: controller-v0.45.0
   updateStrategy: resource-merge
 upstreamLock:
   type: git
   git:
     repo: https://github.com/kubernetes/ingress-nginx
-    directory: deploy/static/provider/cloud
+    directory: deploy/static/provider/do
     ref: controller-v0.45.0
     commit: ed5aee7659bdd9a5f018ef56ddd2de664b2d96e7
 info:

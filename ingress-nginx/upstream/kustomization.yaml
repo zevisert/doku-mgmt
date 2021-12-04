@@ -4,7 +4,8 @@
 # ```
 # namespace: ingress-nginx
 # bases:
-#   - github.com/kubernetes/ingress-nginx/deploy/static/provider/cloud?ref=master
+#   - github.com/kubernetes/ingress-nginx/deploy/static/provider/do?ref=master
 # ```
+
 resources:
-- deploy.yaml
+  - deploy.yaml
