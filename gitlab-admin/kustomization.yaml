@@ -1,6 +1,0 @@
-# See: https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-kubernetes-cluster
-
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-- gitlab-admin.yaml

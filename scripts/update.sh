@@ -2,7 +2,7 @@
 
 set -e
 
-## utility functions
+# region: Utility functions
 
 # shellcheck disable=SC2120
 pushd() {
@@ -25,7 +25,7 @@ update_custom() {
   kustomize build --enable-helm "$UPDATE_DIR" > "$OUTPUT_DIR/deploy.yaml"
 
   pushd "$OUTPUT_DIR"
-  kpt cfg fmt . >/dev/null
+  kpt fn eval --image gcr.io/kpt-fn/format:v0.1
   kustomize create --autodetect
   popd
 }
@@ -33,6 +33,10 @@ update_custom() {
 update_kpt() {
   kpt pkg update "$1@$2" --strategy resource-merge
 }
+
+# endregion: Utility functions
+
+# region: Package handlers
 
 cert_manager() {
   UPDATE_DIR="scripts/cert-manager"
@@ -42,15 +46,31 @@ cert_manager() {
 helmCharts:
 - name: cert-manager
   releaseName: cert-manager
+  namespace: cert-manager
   repo: https://charts.jetstack.io
   version: $1
   valuesInline:
+    global:
+      leaderElection:
+        namespace: cert-manager
     installCRDs: true
 EOF
   fi
 
   update_custom "$UPDATE_DIR" "cert-manager/upstream/helm"
 }
+
+
+ingress_nginx() {
+  if [[ -z "$1" ]]; then
+    echo "version argument is required!"
+    exit 1
+  fi
+
+  update_kpt "ingress-nginx/upstream" "controller-v$1"
+}
+
+
 
 elastic_cloud() {
   UPDATE_DIR="scripts/elastic-cloud"
@@ -74,14 +94,6 @@ gitlab_runner() {
   kpt cfg set "gitlab-runner" runner.version "v$1" --set-by package-default >/dev/null
 }
 
-ingress_nginx() {
-  if [[ -z "$1" ]]; then
-    echo "version argument is required!"
-    exit 1
-  fi
-
-  update_kpt "ingress-nginx/upstream" "controller-v$1"
-}
 
 kube_state_metrics() {
   if [[ -z "$1" ]]; then
@@ -97,13 +109,12 @@ kube_state_metrics() {
   popd
 }
 
+# endregion: Package handlers 
+
 case "$1" in
 
   cert-manager) cert_manager "${@:2}" ;;
-  elastic-cloud) elastic_cloud "${@:2}" ;;
-  gitlab-runner) gitlab_runner "${@:2}" ;;
   ingress-nginx) ingress_nginx "${@:2}" ;;
-  kube-state-metrics) kube_state_metrics "${@:2}" ;;
 
   *) echo "no auto-update script available for '$1'" && exit 1 ;;
 esac

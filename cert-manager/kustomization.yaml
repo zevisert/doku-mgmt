@@ -2,14 +2,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: appdat-system
 resources:
-- upstream
-# This is neccesary to ensure kustomize knows ClusterIssuer is a cluster scoped resource
+  - upstream
 openapi:
+  # This is necessary to ensure kustomize knows ClusterIssuer is a
+  # cluster scoped resource
   path: schema.json
 crds:
-# This is neccesary to ensure kustomize knows ClusterIssuer substitutes fields like privateKeySecretRef with secretRefs.
-# It would otherwise not know the field referenced a K8 secret resource. This replicates the behavior previously provided by 'configurations'
-- crd.json
+  # This is necessary to ensure kustomize knows ClusterIssuer substitutes
+  # fields like privateKeySecretRef with secretRefs. It would otherwise not
+  # know the field referenced a K8 secret resource. This replicates the
+  # behavior previously provided by 'configurations'
+  - crd.json
 components:
-- default-issuer
-- account-key
+  - default-issuer
+  - account-key
