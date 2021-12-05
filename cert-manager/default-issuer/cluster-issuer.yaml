@@ -1,15 +1,26 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+  name: letsencrypt
 spec:
   acme:
-    email: operations@appdat.jsc.nasa.gov # kpt-set: ${default-issuer.email}
+    email: web+letsencrypt/doku@zevisert.ca # kpt-set: ${default-issuer.email}
     server: https://acme-v02.api.letsencrypt.org/directory # kpt-set: ${default-issuer.server}
-    preferredChain: "ISRG Root X1" # kpt-set: ${default-issuer.preferredChain}
+    preferredChain: ISRG Root X1 # kpt-set: ${default-issuer.preferredChain}
     privateKeySecretRef:
-      name: letsencrypt-prod
+      name: letsencrypt-account-key
+      key: account.key
     solvers:
+    - dns01:
+        digitalocean:
+          tokenSecretRef:
+            key: access-token
+            name: digitalocean-dns
+      selector:
+        dnsZones: [] # kpt-set ${default-issuer.dnsSolver.zones}
     - http01:
         ingress:
           class: nginx # kpt-set: ${default-issuer.ingressClass}
+      selector:
+        matchLabels:
+          use-http01-solver: "true"

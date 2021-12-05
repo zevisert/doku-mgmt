@@ -10,8 +10,9 @@ configMapGenerator:
 secretGenerator:
 - name: ingress-nginx-maxmind-license
   behavior: create
-  literals:
-  - maxmind-license-key= # kpt-set: maxmind-license-key=${geoip2.maxmind-license-key}
+  files:
+  - maxmind-license-key=secrets/license-key
+  - maxmind-account-id=secrets/account-id
 patches:
 - patch: |-
     - op: add

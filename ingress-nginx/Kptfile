@@ -4,7 +4,3 @@ metadata:
   name: ingress-nginx
 info:
   description: NGINX Ingress Controller for Kubernetes
-pipeline:
-  mutators:
-  - image: gcr.io/kpt-fn/apply-setters:v0.1
-    configPath: setters.yaml

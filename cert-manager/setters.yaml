@@ -3,7 +3,13 @@ kind: ConfigMap
 metadata:
   name: setters
 data:
-  default-issuer.email: operations@appdat.jsc.nasa.gov
+  default-issuer.email: web+letsencrypt/doku@zevisert.ca
   default-issuer.ingressClass: nginx
   default-issuer.preferredChain: ISRG Root X1
   default-issuer.server: https://acme-v02.api.letsencrypt.org/directory
+  default-issuer.dnsSolver.zones: |
+    - isert.ca
+    - isert.link
+    - zevisert.ca
+    - zuzi.art
+    - zuzanariha.art

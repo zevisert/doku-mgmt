@@ -5,6 +5,22 @@ configMapGenerator:
 - name: ingress-nginx-controller
   behavior: merge
   literals:
+  # CIDR blocks
+  # 218.85.0.0/16      - CHINANET-BACKBONE
+  # 123.113.128.0/18   - China Unicom Beijing Province Network
+  # 140.112.0.0/12     - Taiwan Academic Network (TANet) Information Center
+  # 221.127.192.0/18   - HGC Global Communications Limited
+  # 119.120.0.0/13     - CHINANET-BACKBONE
+  # 218.89.0.0/16      - CHINANET-BACKBONE
+  # 117.80.0.0/13      - CHINANET-BACKBONE
+  # 121.224.0.0/12     - CHINANET-BACKBONE
+  # 113.93.104.0/22    - CHINANET-BACKBONE - cndata.com
+  # 42.100.0.0/15      - CHINANET-BACKBONE
+  # 124.16.189.0/24    - Computer Network Information Center
+  # 140.249.240.0/20   - Qingdao, Shandong Province, P.R.China.
+  # 101.16.0.0/12      - CHINA UNICOM China169 Backbone
+  # 111.193.128.0/18   - China Unicom Beijing Province Network
+  # 122.192.0.0/14     - CHINA UNICOM China169 Backbone
   - block-cidrs="218.85.0.0/16, 123.113.128.0/18, 140.112.0.0/12, 221.127.192.0/18, 119.120.0.0/13, 218.89.0.0/16, 117.80.0.0/13, 121.224.0.0/12, 113.93.104.0/22, 42.100.0.0/15, 124.16.189.0/24, 140.249.240.0/20, 101.16.0.0/12, 111.193.128.0/18, 122.192.0.0/14"
   # 2.4 Network Configuration
   - keep-alive="10"

@@ -3,16 +3,17 @@ kind: Component
 configurations:
 - https://appdat.jsc.nasa.gov/appdat/kpt-packages/-/raw/master/kustomizeconfig/cert-manager.yaml
 secretGenerator:
-- name: letsencrypt-account-key
+- name: ca-key-pair
   namespace: cert-manager
   behavior: create
   files:
-  - account.key=secrets/account.key
+  - tls.key=secrets/tls.key
+  - tls.crt=secrets/tls.crt
 patches:
 - patch: |
     - op: replace
-      path: /spec/acme/disableAccountKeyGeneration
-      value: true
+      path: /spec/ca/secretName
+      value: ca-key-pair
   target:
     kind: ClusterIssuer
-    name: letsencrypt
+    name: ca-issuer

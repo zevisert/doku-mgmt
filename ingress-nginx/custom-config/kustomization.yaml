@@ -13,7 +13,7 @@ configMapGenerator:
 - name: ingress-nginx-custom-headers
   behavior: create
   literals:
-  - X-Powered-By="appdat"
+  - X-Powered-By="zevisert"
 vars:
 - name: HEADERS_CONFIGMAP_NAME
   fieldref:

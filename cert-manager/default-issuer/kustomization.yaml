@@ -2,6 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
 - cluster-issuer.yaml
+secretGenerator:
+  - name: digitalocean-dns
+    namespace: cert-manager
+    behavior: create
+    files:
+    - access-token=secrets/access-token
 patches:
 - patch: |
     - op: add
@@ -16,7 +22,7 @@ patches:
 replacements:
 - source:
     kind: ClusterIssuer
-    name: letsencrypt-prod
+    name: letsencrypt
     fieldPath: kind
   targets:
   - select:
@@ -28,7 +34,7 @@ replacements:
       create: true
 - source:
     kind: ClusterIssuer
-    name: letsencrypt-prod
+    name: letsencrypt
     fieldPath: metadata.name
   targets:
   - select:

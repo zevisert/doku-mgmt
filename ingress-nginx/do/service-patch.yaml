@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx-controller
+  annotations:
+    # See the available options here:
+    # https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/64e13ddc66831e51176e170bee31e2bf7f886bba/docs/controllers/services/annotations.md
+    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
+    
