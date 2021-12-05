@@ -28,6 +28,8 @@ update_custom() {
   kpt fn eval --image gcr.io/kpt-fn/format:v0.1
   kustomize create --autodetect
   popd
+
+  rm -rf "$UPDATE_DIR/charts"
 }
 
 update_kpt() {
