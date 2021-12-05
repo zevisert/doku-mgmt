@@ -8,3 +8,6 @@ pipeline:
   mutators:
     - image: gcr.io/kpt-fn/starlark:v0.3
       configPath: starlark-remove-helm.yaml
+    - image: gcr.io/kpt-fn/starlark:v0.3
+      configPath: starlark-kustomize-local-config.yaml
+    - image: gcr.io/kpt-fn/format:v0.1

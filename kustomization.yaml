@@ -4,9 +4,6 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"
 resources:
-- role.yaml
-- role_binding.yaml
-- service_account.yaml
-- service_account_database.yaml
-- role_binding_database.yaml
-- role_database.yaml
+- cert-manager
+- ingress-nginx
+- mongodb-kubernetes-operator

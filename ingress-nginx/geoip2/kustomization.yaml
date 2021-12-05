@@ -1,14 +1,20 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
+metadata:
+  annotations:
+    config.kubernetes.io/local-config: "true"
+namespace: ingress-nginx
 configMapGenerator:
 # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
 - name: ingress-nginx-controller
+  namespace: ingress-nginx
   behavior: merge
   literals:
   - use-geoip="false"
   - use-geoip2="true"
 secretGenerator:
 - name: ingress-nginx-maxmind-license
+  namespace: ingress-nginx
   behavior: create
   files:
   - maxmind-license-key=secrets/license-key
@@ -32,3 +38,5 @@ patches:
   target:
     kind: DaemonSet
     name: ingress-nginx-controller
+generatorOptions:
+  disableNameSuffixHash: true

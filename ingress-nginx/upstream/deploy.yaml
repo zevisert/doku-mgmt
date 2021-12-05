@@ -411,7 +411,6 @@ metadata: # kpt-merge: ingress-nginx/nginx
     app.kubernetes.io/managed-by: kpt
     app.kubernetes.io/component: controller
   name: nginx
-  namespace: ingress-nginx
 spec:
   controller: k8s.io/ingress-nginx
 ---
