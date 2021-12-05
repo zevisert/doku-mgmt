@@ -1,0 +1,13 @@
+apiVersion: fn.kpt.dev/v1alpha1
+kind: StarlarkRun
+metadata:
+  name: remove-managed-by-helm
+source: |
+  managedBy = "app.kubernetes.io/managed-by"
+  for resource in ctx.resource_list["items"]:
+    if "labels" in resource["metadata"]:
+
+      resource['metadata']['labels'].pop("helm.sh/chart", None)
+      
+      if managedBy in resource["metadata"]["labels"]:
+        resource["metadata"]["labels"][managedBy] = "kpt"

@@ -3,11 +3,11 @@ kind: Component
 resources:
 - cluster-issuer.yaml
 secretGenerator:
-  - name: digitalocean-dns
-    namespace: cert-manager
-    behavior: create
-    files:
-    - access-token=secrets/access-token
+- name: digitalocean-dns
+  namespace: cert-manager
+  behavior: create
+  files:
+  - access-token=secrets/access-token
 patches:
 - patch: |
     - op: add

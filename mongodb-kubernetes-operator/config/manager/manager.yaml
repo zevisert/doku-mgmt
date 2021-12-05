@@ -35,7 +35,7 @@ spec:
         - /usr/local/bin/entrypoint
         env:
         - name: WATCH_NAMESPACE
-          value: "*"
+          value: '*'
         - name: POD_NAME
           valueFrom:
             fieldRef:

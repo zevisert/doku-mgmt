@@ -6,6 +6,5 @@
 # bases:
 #   - github.com/kubernetes/ingress-nginx/deploy/static/provider/do?ref=master
 # ```
-
 resources:
   - deploy.yaml
