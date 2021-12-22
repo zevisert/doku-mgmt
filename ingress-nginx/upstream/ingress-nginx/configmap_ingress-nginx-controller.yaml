@@ -1,0 +1,42 @@
+# Source: ingress-nginx/templates/controller-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/version: "1.1.0"
+    app.kubernetes.io/component: controller
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+data:
+  # Custom config
+  allow-snippet-annotations: "true"
+  server-snippet: 'if ($server_name = "_") { return 444; }' # kpt-set: ${config.server-snippet}
+  add-headers: "ingress-nginx/ingress-nginx-custom-headers" # kpt-set: ${config.add-headers-configmap}
+  generate-request-id: "true" # kpt-set: ${config.generate-request-id}
+  # Digital ocean
+  enable-real-ip: "true" # kpt-set: ${config.enable-real-ip}
+  use-proxy-protocol: "true" # kpt-set: ${config.use-proxy-protocol}
+  real-ip-header: "proxy_protocol" # kpt-set: ${config.real-ip-header}
+  use-geoip: "false" # kpt-set: ${config.use-geoip}
+  use-geoip2: "true" # kpt-set: ${config.use-geoip2}
+  # Logging
+  log-format-escape-json: "false" # kpt-set: ${config.log-format-escape-json}
+  log-format-upstream: "{\"timestamp\":\"$time_local\",\"request_id\":\"$request_id\",\"http_referer\":\"$http_referer\",\"connection\":{\"scheme\":\"$scheme\",\"connection_serial_number\":\"$connection\",\"connection_requests\":\"$connection_requests\",\"ssl\":{\"ssl_protocol\":\"$ssl_protocol\",\"ssl_cipher\":\"$ssl_cipher\",\"ssl_session_id\":\"$ssl_session_id\",\"ssl_session_reused\":\"$ssl_session_reused\"}},\"request\":{\"client\":\"$remote_addr\",\"port\":\"$remote_port\",\"host\":\"$host\",\"uri\":\"$request_uri\",\"query\":\"$query_string\",\"request_time\":\"$request_time\",\"length\":\"$request_length\",\"method\":\"$request_method\",\"http_version\":\"$server_protocol\",\"headers\":{\"Host\":\"$host\",\"User-Agent\":\"$http_user_agent\"}},\"response\":{\"status\":\"$status\",\"bytes_sent\":\"$bytes_sent\",\"body_bytes_sent\":\"$body_bytes_sent\",\"gzip_ratio\":\"$gzip_ratio\",\"headers\":{\"Content-Type\":\"$content_type\",\"Content-Length\":\"$content_length\"}},\"upstream\":{\"upstream\":\"$upstream_addr\",\"upstream_name\":\"$proxy_upstream_name\",\"upstream_status\":\"$upstream_status\",\"upstream_connect_time\":\"$upstream_connect_time\",\"upstream_header_time\":\"$upstream_header_time\",\"upstream_response_time\":\"$upstream_response_time\",\"upstream_response_length\":\"$upstream_response_length\",\"upstream_cache_status\":\"$upstream_cache_status\",\"http_x_forwarded_for\":\"$http_x_forwarded_for\"},\"geo\":{\"country_name\":\"$geoip2_city_country_name\",\"country_code\":\"$geoip2_city_country_code\",\"city\":\"$geoip2_city\",\"region_name\":\"$geoip2_region_name\",\"region_code\":\"$geoip2_region_code\",\"latitude\":\"$geoip2_latitude\",\"longitude\":\"$geoip2_longitude\"},\"server\":{\"server_name\":\"$server_name\",\"nginx_version\":\"$nginx_version\",\"pid\":\"$pid\"}}\n" # kpt-set: ${config.log-format-upstream}
+  # Security
+  block-cidrs: "218.85.0.0/16, 123.113.128.0/18, 140.112.0.0/12, 221.127.192.0/18, 119.120.0.0/13, 218.89.0.0/16, 117.80.0.0/13, 121.224.0.0/12, 113.93.104.0/22, 42.100.0.0/15, 124.16.189.0/24, 140.249.240.0/20, 101.16.0.0/12, 111.193.128.0/18, 122.192.0.0/14\n" # kpt-set: ${config.block-cidrs}
+  keep-alive: "10" # kpt-set: ${config.keep-alive}
+  server-tokens: "false" # kpt-set: ${config.server-tokens}
+  ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384" # kpt-set: ${config.ssl-ciphers}
+  ssl-protocols: "TLSv1.2 TLSv1.3" # kpt-set: ${config.ssl-protocols}
+  enable-ocsp: "true" # kpt-set: ${config.enable-ocsp}
+  ssl-prefer-server-ciphers: "false" # kpt-set: ${config.ssl-prefer-server-ciphers}
+  use-http2: "true" # kpt-set: ${config.use-http2}
+  hsts-include-subdomains: "true" # kpt-set: ${config.hsts-include-subdomains}
+  hsts-max-age: "31536000" # kpt-set: ${config.hsts-max-age}
+  hsts-preload: "true" # kpt-set: ${config.hsts-preload}
+  hsts: "true" # kpt-set: ${config.hsts}
+  client-header-timeout: "15" # kpt-set: ${config.client-header-timeout}
+  client-body-timeout: "30" # kpt-set: ${config.client-body-timeout}
+  large-client-header-buffers: "4 128k" # kpt-set: ${config.large-client-header-buffers}
