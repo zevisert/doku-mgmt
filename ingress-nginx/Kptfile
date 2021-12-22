@@ -24,7 +24,7 @@ pipeline:
         config.large-client-header-buffers: 4 128k
         config.log-format-upstream: |
           {"timestamp":"$time_local","request_id":"$request_id","http_referer":"$http_referer","connection":{"scheme":"$scheme","connection_serial_number":"$connection","connection_requests":"$connection_requests","ssl":{"ssl_protocol":"$ssl_protocol","ssl_cipher":"$ssl_cipher","ssl_session_id":"$ssl_session_id","ssl_session_reused":"$ssl_session_reused"}},"request":{"client":"$remote_addr","port":"$remote_port","host":"$host","uri":"$request_uri","query":"$query_string","request_time":"$request_time","length":"$request_length","method":"$request_method","http_version":"$server_protocol","headers":{"Host":"$host","User-Agent":"$http_user_agent"}},"response":{"status":"$status","bytes_sent":"$bytes_sent","body_bytes_sent":"$body_bytes_sent","gzip_ratio":"$gzip_ratio","headers":{"Content-Type":"$content_type","Content-Length":"$content_length"}},"upstream":{"upstream":"$upstream_addr","upstream_name":"$proxy_upstream_name","upstream_status":"$upstream_status","upstream_connect_time":"$upstream_connect_time","upstream_header_time":"$upstream_header_time","upstream_response_time":"$upstream_response_time","upstream_response_length":"$upstream_response_length","upstream_cache_status":"$upstream_cache_status","http_x_forwarded_for":"$http_x_forwarded_for"},"geo":{"country_name":"$geoip2_city_country_name","country_code":"$geoip2_city_country_code","city":"$geoip2_city","region_name":"$geoip2_region_name","region_code":"$geoip2_region_code","latitude":"$geoip2_latitude","longitude":"$geoip2_longitude"},"server":{"server_name":"$server_name","nginx_version":"$nginx_version","pid":"$pid"}}
-        config.real-ip-header: proxy_protocol
+        config.proxy-real-ip-cidr: "104.248.104.79,10.137.0.0/16"
         config.server-snippet: if ($server_name = "_") { return 444; }
         config.server-tokens: "false"
         config.ssl-ciphers: ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
@@ -33,11 +33,11 @@ pipeline:
         config.use-geoip: "false"
         config.use-geoip2: "true"
         config.use-http2: "true"
-        config.use-proxy-protocol: "true"
+        config.use-proxy-protocol: "false"
         job.admission-create.ttl-after-finished: "30"
         job.admission-patch.ttl-after-finished: "30"
-        service.ingress-controller.annotations.redirect-http-to-https: "true"
-        service.ingress-controller.externalTrafficPolicy: Cluster
+        service.ingress-controller.annotations.redirect-http-to-https: "false"
+        service.ingress-controller.externalTrafficPolicy: Local
 inventory:
   namespace: ingress-nginx
   name: inventory-28070340
