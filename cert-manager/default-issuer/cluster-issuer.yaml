@@ -17,7 +17,7 @@ spec:
             key: access-token
             name: digitalocean-dns
       selector:
-        dnsZones: [] # kpt-set ${default-issuer.dnsSolver.zones}
+        dnsZones: [] # kpt-set: ${default-issuer.dnsSolver.zones}
     - http01:
         ingress:
           class: nginx # kpt-set: ${default-issuer.ingressClass}
