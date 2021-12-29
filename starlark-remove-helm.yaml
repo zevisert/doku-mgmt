@@ -17,5 +17,5 @@ source: |
       resource['metadata']['labels'].pop("helm.sh/chart", None)
       
       if managedBy in resource["metadata"]["labels"]:
-        # Takeover the managedBy label
+        # Takeover the managed-by label
         resource["metadata"]["labels"][managedBy] = "kpt"

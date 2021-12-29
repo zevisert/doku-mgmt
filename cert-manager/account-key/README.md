@@ -2,13 +2,12 @@
 
 ## Usage
 
-Before referencing this kustomize component in your own `kustomization.yaml`
-you must create the necessary token secret files:
+Before referencing this component you must create the necessary token secret files:
 
-```sh
+```shell
+echo -n "<letsencrypt account key>" > secrets/account-key
 
-# run one of the following
-echo -n "<tls.key>" > secrets/tls.key
+kubectl create secret generic letsencrypt-account-key --namespace cert-manager --from-file tls.key=secrets/account.key --dry-run=client --output yaml > secrets/account-key.secret.yaml
 ```
 
 > **NOTE:** These files should not be checked into source control!

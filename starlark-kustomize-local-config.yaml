@@ -3,14 +3,16 @@ kind: StarlarkRun
 metadata:
   name: add-local-config-annotation
 source: |
-  managedBy = "app.kubernetes.io/managed-by"
-  print(ctx)
   for resource in ctx.resource_list["items"]:
+
+    # If this is a kustomize resource
     if resource.get('apiVersion', '').startswith("kustomize.config.k8s.io"):
+
+      # Create metadata.annotations
       if 'metadata' not in resource:
-        resource['metadata'] = {}
-      
+        resource['metadata'] = {}   
       if 'annotations' not in resource['metadata']:
         resource['metadata']['annotations'] = {}
       
+      # Set local-config annotation
       resource['metadata']['annotations']['config.kubernetes.io/local-config'] = "true"

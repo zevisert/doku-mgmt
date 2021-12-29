@@ -1,0 +1,12 @@
+{
+    "[plaintext]": {
+        "files.insertFinalNewline": false
+    },
+
+    "files.associations": {
+        ".krmignore": "ignore",
+        "Kptfile": "yaml"
+    },
+    
+    "files.insertFinalNewline": true
+}

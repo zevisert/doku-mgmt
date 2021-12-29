@@ -6,5 +6,20 @@ info:
   description: Automatically provision and manage TLS certificates in Kubernetes
 pipeline:
   mutators:
-  - image: gcr.io/kpt-fn/apply-setters:v0.1
-    configPath: setters.yaml
+    - image: gcr.io/kpt-fn/apply-setters:v0.1
+      configMap: 
+        default-issuer.name: letsencrypt
+        default-issuer.email: web+letsencrypt/doku@zevisert.ca
+        default-issuer.ingressClass: nginx
+        default-issuer.preferredChain: ISRG Root X1
+        default-issuer.server: https://acme-v02.api.letsencrypt.org/directory
+        default-issuer.dnsSolver.zones: |
+          - isert.ca
+          - isert.link
+          - zevisert.ca
+          - zuzi.art
+          - zuzanariha.art
+inventory:
+  namespace: cert-manager
+  name: inventory-48571802
+  inventoryID: 1788f68bad019b03e37a62fed6334627138846b8-1640816193333521032

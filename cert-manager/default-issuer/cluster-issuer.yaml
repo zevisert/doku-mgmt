@@ -1,12 +1,13 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt
+  name: letsencrypt # kpt-set: ${default-issuer-name}
 spec:
   acme:
     email: web+letsencrypt/doku@zevisert.ca # kpt-set: ${default-issuer.email}
     server: https://acme-v02.api.letsencrypt.org/directory # kpt-set: ${default-issuer.server}
     preferredChain: ISRG Root X1 # kpt-set: ${default-issuer.preferredChain}
+    disableAccountKeyGeneration: true
     privateKeySecretRef:
       name: letsencrypt-account-key
       key: account.key
@@ -17,8 +18,17 @@ spec:
             key: access-token
             name: digitalocean-dns
       selector:
-        dnsZones: [] # kpt-set: ${default-issuer.dnsSolver.zones}
-    - http01:
+        dnsZones: # kpt-set: ${default-issuer.dnsSolver.zones}
+        - isert.ca
+        - isert.link
+        - zevisert.ca
+        - zuzi.art
+        - zuzanariha.art
+    # kpt-set: ${default-issuer.dnsSolver.zones}
+    # kpt-set: ${default-issuer.dnsSolver.zones}
+    # kpt-set: ${default-issuer.dnsSolver.zones}
+    - # kpt-set: ${default-issuer.dnsSolver.zones}
+      http01:
         ingress:
           class: nginx # kpt-set: ${default-issuer.ingressClass}
       selector:
