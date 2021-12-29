@@ -34,6 +34,8 @@ pipeline:
         config.use-geoip2: "true"
         config.use-http2: "true"
         config.use-proxy-protocol: "false"
+        config.use-forwarded-headers: "false"
+        config.compute-full-forwarded-for: "false"
         job.admission-create.ttl-after-finished: "30"
         job.admission-patch.ttl-after-finished: "30"
         service.ingress-controller.annotations.redirect-http-to-https: "false"
