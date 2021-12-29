@@ -5,9 +5,17 @@ metadata:
 source: |
   managedBy = "app.kubernetes.io/managed-by"
   for resource in ctx.resource_list["items"]:
-    if "labels" in resource["metadata"]:
 
+    # We're not honouring helm hooks
+    if "labels" in resource["metadata"]:
+      resource['metadata']['annotations'].pop("helm.sh/hook", None)
+      resource['metadata']['annotations'].pop("helm.sh/hook-delete-policy", None)
+      resource['metadata']['annotations'].pop("helm.sh/hook-weight", None)
+
+    # We're not part of a helm chart
+    if "labels" in resource["metadata"]:
       resource['metadata']['labels'].pop("helm.sh/chart", None)
       
       if managedBy in resource["metadata"]["labels"]:
+        # Takeover the managedBy label
         resource["metadata"]["labels"][managedBy] = "kpt"
