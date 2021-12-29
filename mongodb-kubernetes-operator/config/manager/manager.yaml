@@ -6,6 +6,7 @@ metadata: # kpt-merge: /mongodb-kubernetes-operator
   labels:
     owner: mongodb
   name: mongodb-kubernetes-operator
+  namespace: mongodb-operator # kpt-set: ${operator.namespace}
 spec:
   replicas: 1
   selector:

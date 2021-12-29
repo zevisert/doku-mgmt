@@ -8,5 +8,6 @@
         "Kptfile": "yaml"
     },
     
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true
 }

@@ -4,7 +4,7 @@ metadata: # kpt-merge: /mongodb-kubernetes-operator
   name: mongodb-kubernetes-operator
 subjects:
 - kind: ServiceAccount
-  namespace: mongodb-operator
+  namespace: mongodb-operator # kpt-set: ${operator.namespace}
   name: mongodb-kubernetes-operator
 roleRef:
   kind: ClusterRole
