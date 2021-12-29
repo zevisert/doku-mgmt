@@ -17,9 +17,9 @@ data:
   generate-request-id: "true" # kpt-set: ${config.generate-request-id}
   # Digital ocean
   enable-real-ip: "true" # kpt-set: ${config.enable-real-ip}
-  use-proxy-protocol: "false" # kpt-set: ${config.use-proxy-protocol}
-  use-forwarded-headers: "false" # kpt-set: ${config.use-forwarded-headers}
-  compute-full-forwarded-for: "false" #kpt-set: ${config.compute-full-forwarded-for}
+  use-proxy-protocol: "true" # kpt-set: ${config.use-proxy-protocol}
+  use-forwarded-headers: "true" # kpt-set: ${config.use-forwarded-headers}
+  compute-full-forwarded-for: "true" # kpt-set: ${config.compute-full-forwarded-for}
   proxy-real-ip-cidr: 104.248.104.79,10.137.0.0/16 # kpt-set: ${config.proxy-real-ip-cidr}
   use-geoip: "false" # kpt-set: ${config.use-geoip}
   use-geoip2: "true" # kpt-set: ${config.use-geoip2}

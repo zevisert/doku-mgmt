@@ -9,7 +9,8 @@ metadata:
     app.kubernetes.io/component: controller
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "false" # kpt-set: ${service.ingress-controller.redirect-http-to-https}
-    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "false" # kpt-set: ${config.use-proxy-protocol}
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true" # kpt-set: ${config.use-proxy-protocol}
+    service.beta.kubernetes.io/do-loadbalancer-hostname: intercom.isert.link # kpt-set: ${service.ingress-controller.pod-communication-workaround-hostname}
   name: ingress-nginx-controller
   namespace: ingress-nginx
 spec:

@@ -33,13 +33,14 @@ pipeline:
         config.use-geoip: "false"
         config.use-geoip2: "true"
         config.use-http2: "true"
-        config.use-proxy-protocol: "false"
-        config.use-forwarded-headers: "false"
-        config.compute-full-forwarded-for: "false"
+        config.use-proxy-protocol: "true"
+        config.use-forwarded-headers: "true"
+        config.compute-full-forwarded-for: "true"
         job.admission-create.ttl-after-finished: "30"
         job.admission-patch.ttl-after-finished: "30"
         service.ingress-controller.annotations.redirect-http-to-https: "false"
         service.ingress-controller.externalTrafficPolicy: Local
+        service.ingress-controller.pod-communication-workaround-hostname: intercom.isert.link
 inventory:
   namespace: ingress-nginx
   name: inventory-28070340
