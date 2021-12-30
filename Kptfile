@@ -11,3 +11,7 @@ pipeline:
     - image: gcr.io/kpt-fn/starlark:v0.3
       configPath: starlark-kustomize-local-config.yaml
     - image: gcr.io/kpt-fn/format:v0.1
+inventory:
+  namespace: default
+  name: inventory-69805044
+  inventoryID: aa51ddd940990379e49efa8973a9dd0a67e8171a-1640819111005037748

@@ -19,7 +19,3 @@ pipeline:
           - zevisert.ca
           - zuzi.art
           - zuzanariha.art
-inventory:
-  namespace: cert-manager
-  name: inventory-48571802
-  inventoryID: 1788f68bad019b03e37a62fed6334627138846b8-1640816193333521032

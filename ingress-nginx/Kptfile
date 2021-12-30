@@ -41,7 +41,3 @@ pipeline:
         service.ingress-controller.annotations.redirect-http-to-https: "false"
         service.ingress-controller.externalTrafficPolicy: Local
         service.ingress-controller.pod-communication-workaround-hostname: intercom.isert.link
-inventory:
-  namespace: ingress-nginx
-  name: inventory-28070340
-  inventoryID: 0a4a3b7359325022e9a01199c2f4d6cf593bcb5d-1640144125054955798

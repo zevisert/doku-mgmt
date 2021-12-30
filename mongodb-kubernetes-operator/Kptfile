@@ -9,7 +9,3 @@ pipeline:
     - image: gcr.io/kpt-fn/apply-setters:v0.1
       configMap:
         operator.namespace: mongodb-operator
-inventory:
-  namespace: mongodb-operator
-  name: inventory-47321678
-  inventoryID: 015f9ee009fd1678d7b43cc21727149d51819628-1640818856280680543
