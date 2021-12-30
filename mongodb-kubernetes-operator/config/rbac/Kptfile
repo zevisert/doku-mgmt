@@ -1,0 +1,18 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: rbac
+upstream:
+  type: git
+  git:
+    repo: https://github.com/mongodb/mongodb-kubernetes-operator
+    directory: /config/rbac
+    ref: v0.7.2
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/mongodb/mongodb-kubernetes-operator
+    directory: /config/rbac
+    ref: v0.7.2
+    commit: 76795206a6c2277308c4bed95a710c838d951972
