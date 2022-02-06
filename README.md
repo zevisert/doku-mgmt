@@ -80,6 +80,15 @@ Package "doku-cluster-mgmt"
 │       ├── [role_cert-manager:leaderelection.yaml]  Role kube-system/cert-manager:leaderelection
 │       ├── [rolebinding_cert-manager-cainjector:leaderelection.yaml]  RoleBinding kube-system/cert-manager-cainjector:leaderelection
 │       └── [rolebinding_cert-manager:leaderelection.yaml]  RoleBinding kube-system/cert-manager:leaderelection
+├── Package "external-dns"
+│   ├── [Kptfile]  Kptfile external-dns
+│   ├── [clusterrole.yaml]  ClusterRole external-dns
+│   ├── [clusterrolebinding.yaml]  ClusterRoleBinding external-dns-viewer
+│   ├── [deployment.yaml]  Deployment external-dns/external-dns
+│   ├── [namespace.yaml]  Namespace external-dns
+│   ├── [serviceaccount.yaml]  ServiceAccount external-dns/external-dns
+│   └── secrets
+│       └── [digitalocean-dns.secret.yaml]  Secret external-dns/digitalocean-dns
 ├── Package "ingress-nginx"
 │   ├── [Kptfile]  Kptfile ingress-nginx
 │   ├── [custom-headers.configmap.yaml]  ConfigMap ingress-nginx/ingress-nginx-custom-headers
