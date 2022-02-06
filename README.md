@@ -8,6 +8,8 @@ The main components are:
 - cert-manager
 - ingress-nginx
 - mongodb-kubernetes-operator
+- sealed-secrets
+- external-dns
 
 This repository lets me use Git-Ops to manage my cluster. I'm using a few configuration options that prevent provisioning clusters other than on Digitalocean, for instance: external load balancer options with ingress-nginx, and my letsencrypt issuer with cert-manager.
 
@@ -25,13 +27,13 @@ Package "doku-cluster-mgmt"
 │   ├── secrets
 │   │   └── [account-key.secret.yaml]  Secret cert-manager/letsencrypt-account-key
 │   ├── default-issuer
-│   │   └── [cluster-issuer.yaml]  ClusterIssuer letsencrypt
-│   ├── secrets
-│   │   └── [digitalocean-dns.secret.yaml]  Secret cert-manager/digitalocean-dns
+│   │   ├── [cluster-issuer.yaml]  ClusterIssuer letsencrypt
+│   │   └── secrets
+│   │       └── [digitalocean-dns.secret.yaml]  Secret cert-manager/digitalocean-dns
 │   ├── self-signed-issuer
-│   │   └── [ca-issuer.yaml]  ClusterIssuer ca-issuer
-│   ├── secrets
-│   │   └── [ca-key.secret.yaml]  Secret cert-manager/ca-key-pair
+│   │   ├── [ca-issuer.yaml]  ClusterIssuer ca-issuer
+│   │   └── secrets
+│   │       └── [ca-key.secret.yaml]  Secret cert-manager/ca-key-pair
 │   ├── Package "upstream"
 │   │   ├── [Kptfile]  Kptfile cert-manager
 │   │   ├── [clusterrole_cert-manager-cainjector.yaml]  ClusterRole cert-manager-cainjector
@@ -57,27 +59,27 @@ Package "doku-cluster-mgmt"
 │   │   ├── [clusterrolebinding_cert-manager-controller-orders.yaml]  ClusterRoleBinding cert-manager-controller-orders
 │   │   ├── [clusterrolebinding_cert-manager-webhook:subjectaccessreviews.yaml]  ClusterRoleBinding cert-manager-webhook:subjectaccessreviews
 │   │   ├── [mutatingwebhookconfiguration_cert-manager-webhook.yaml]  MutatingWebhookConfiguration cert-manager-webhook
-│   │   ├── [validatingwebhookconfiguration_cert-manager-webhook.yaml]  ValidatingWebhookConfiguration cert-manager-webhook
-│   │   └── kube-system
-│   │       ├── [role_cert-manager-cainjector:leaderelection.yaml]  Role kube-system/cert-manager-cainjector:leaderelection
-│   │       ├── [role_cert-manager:leaderelection.yaml]  Role kube-system/cert-manager:leaderelection
-│   │       ├── [rolebinding_cert-manager-cainjector:leaderelection.yaml]  RoleBinding kube-system/cert-manager-cainjector:leaderelection
-│   │       └── [rolebinding_cert-manager:leaderelection.yaml]  RoleBinding kube-system/cert-manager:leaderelection
-│   └── cert-manager
-│       ├── [deployment_cert-manager-cainjector.yaml]  Deployment cert-manager/cert-manager-cainjector
-│       ├── [deployment_cert-manager-webhook.yaml]  Deployment cert-manager/cert-manager-webhook
-│       ├── [deployment_cert-manager.yaml]  Deployment cert-manager/cert-manager
-│       ├── [job_cert-manager-startupapicheck.yaml]  Job cert-manager/cert-manager-startupapicheck
-│       ├── [role_cert-manager-startupapicheck:create-cert.yaml]  Role cert-manager/cert-manager-startupapicheck:create-cert
-│       ├── [role_cert-manager-webhook:dynamic-serving.yaml]  Role cert-manager/cert-manager-webhook:dynamic-serving
-│       ├── [rolebinding_cert-manager-startupapicheck:create-cert.yaml]  RoleBinding cert-manager/cert-manager-startupapicheck:create-cert
-│       ├── [rolebinding_cert-manager-webhook:dynamic-serving.yaml]  RoleBinding cert-manager/cert-manager-webhook:dynamic-serving
-│       ├── [service_cert-manager-webhook.yaml]  Service cert-manager/cert-manager-webhook
-│       ├── [service_cert-manager.yaml]  Service cert-manager/cert-manager
-│       ├── [serviceaccount_cert-manager-cainjector.yaml]  ServiceAccount cert-manager/cert-manager-cainjector
-│       ├── [serviceaccount_cert-manager-startupapicheck.yaml]  ServiceAccount cert-manager/cert-manager-startupapicheck
-│       ├── [serviceaccount_cert-manager-webhook.yaml]  ServiceAccount cert-manager/cert-manager-webhook
-│       └── [serviceaccount_cert-manager.yaml]  ServiceAccount cert-manager/cert-manager
+│   │   └── [validatingwebhookconfiguration_cert-manager-webhook.yaml]  ValidatingWebhookConfiguration cert-manager-webhook
+│   ├── cert-manager
+│   │   ├── [deployment_cert-manager-cainjector.yaml]  Deployment cert-manager/cert-manager-cainjector
+│   │   ├── [deployment_cert-manager-webhook.yaml]  Deployment cert-manager/cert-manager-webhook
+│   │   ├── [deployment_cert-manager.yaml]  Deployment cert-manager/cert-manager
+│   │   ├── [job_cert-manager-startupapicheck.yaml]  Job cert-manager/cert-manager-startupapicheck
+│   │   ├── [role_cert-manager-startupapicheck:create-cert.yaml]  Role cert-manager/cert-manager-startupapicheck:create-cert
+│   │   ├── [role_cert-manager-webhook:dynamic-serving.yaml]  Role cert-manager/cert-manager-webhook:dynamic-serving
+│   │   ├── [rolebinding_cert-manager-startupapicheck:create-cert.yaml]  RoleBinding cert-manager/cert-manager-startupapicheck:create-cert
+│   │   ├── [rolebinding_cert-manager-webhook:dynamic-serving.yaml]  RoleBinding cert-manager/cert-manager-webhook:dynamic-serving
+│   │   ├── [service_cert-manager-webhook.yaml]  Service cert-manager/cert-manager-webhook
+│   │   ├── [service_cert-manager.yaml]  Service cert-manager/cert-manager
+│   │   ├── [serviceaccount_cert-manager-cainjector.yaml]  ServiceAccount cert-manager/cert-manager-cainjector
+│   │   ├── [serviceaccount_cert-manager-startupapicheck.yaml]  ServiceAccount cert-manager/cert-manager-startupapicheck
+│   │   ├── [serviceaccount_cert-manager-webhook.yaml]  ServiceAccount cert-manager/cert-manager-webhook
+│   │   └── [serviceaccount_cert-manager.yaml]  ServiceAccount cert-manager/cert-manager
+│   └── kube-system
+│       ├── [role_cert-manager-cainjector:leaderelection.yaml]  Role kube-system/cert-manager-cainjector:leaderelection
+│       ├── [role_cert-manager:leaderelection.yaml]  Role kube-system/cert-manager:leaderelection
+│       ├── [rolebinding_cert-manager-cainjector:leaderelection.yaml]  RoleBinding kube-system/cert-manager-cainjector:leaderelection
+│       └── [rolebinding_cert-manager:leaderelection.yaml]  RoleBinding kube-system/cert-manager:leaderelection
 ├── Package "ingress-nginx"
 │   ├── [Kptfile]  Kptfile ingress-nginx
 │   ├── [custom-headers.configmap.yaml]  ConfigMap ingress-nginx/ingress-nginx-custom-headers
@@ -105,23 +107,39 @@ Package "doku-cluster-mgmt"
 │           ├── [service_ingress-nginx-controller.yaml]  Service ingress-nginx/ingress-nginx-controller
 │           ├── [serviceaccount_ingress-nginx-admission.yaml]  ServiceAccount ingress-nginx/ingress-nginx-admission
 │           └── [serviceaccount_ingress-nginx.yaml]  ServiceAccount ingress-nginx/ingress-nginx
-└── Package "mongodb-kubernetes-operator"
-    ├── [Kptfile]  Kptfile mongodb-kubernetes-operator
-    ├── Package "bases"
-    │   ├── [Kptfile]  Kptfile bases
-    │   └── [mongodbcommunity.mongodb.com_mongodbcommunity.yaml]  CustomResourceDefinition mongodbcommunity.mongodbcommunity.mongodb.com
-    ├── Package "manager"
-    │   ├── [Kptfile]  Kptfile manager
-    │   └── [manager.yaml]  Deployment mongodb-operator/mongodb-kubernetes-operator
-    ├── Package "rbac"
-    │   ├── [Kptfile]  Kptfile rbac
-    │   ├── [role.yaml]  Role mongodb-operator/mongodb-kubernetes-operator
-    │   ├── [role_binding.yaml]  RoleBinding mongodb-operator/mongodb-kubernetes-operator
-    │   └── [service_account.yaml]  ServiceAccount mongodb-operator/mongodb-kubernetes-operator
-    └── Package "clusterwide"
-        ├── [Kptfile]  Kptfile clusterwide
-        ├── [role.yaml]  ClusterRole mongodb-kubernetes-operator
-        └── [role_binding.yaml]  ClusterRoleBinding mongodb-kubernetes-operator
+├── Package "mongodb-kubernetes-operator"
+│   ├── [Kptfile]  Kptfile mongodb-kubernetes-operator
+│   ├── Package "bases"
+│   │   ├── [Kptfile]  Kptfile bases
+│   │   └── [mongodbcommunity.mongodb.com_mongodbcommunity.yaml]  CustomResourceDefinition mongodbcommunity.mongodbcommunity.mongodb.com
+│   ├── Package "manager"
+│   │   ├── [Kptfile]  Kptfile manager
+│   │   └── [manager.yaml]  Deployment mongodb-operator/mongodb-kubernetes-operator
+│   ├── Package "rbac"
+│   │   ├── [Kptfile]  Kptfile rbac
+│   │   ├── [role.yaml]  Role mongodb-operator/mongodb-kubernetes-operator
+│   │   ├── [role_binding.yaml]  RoleBinding mongodb-operator/mongodb-kubernetes-operator
+│   │   └── [service_account.yaml]  ServiceAccount mongodb-operator/mongodb-kubernetes-operator
+│   └── Package "clusterwide"
+│       ├── [Kptfile]  Kptfile clusterwide
+│       ├── [role.yaml]  ClusterRole mongodb-kubernetes-operator
+│       └── [role_binding.yaml]  ClusterRoleBinding mongodb-kubernetes-operator
+└── Package "sealed-secrets"
+    ├── [Kptfile]  Kptfile sealed-secrets
+    ├── [namespace.yaml]  Namespace sealed-secrets
+    ├── crds
+    │   └── [sealedsecret-crd.yaml]  CustomResourceDefinition sealedsecrets.bitnami.com
+    └── templates
+        ├── [cluster-role-binding.yaml]  ClusterRoleBinding sealed-secrets
+        ├── [cluster-role.yaml]  ClusterRole secrets-unsealer
+        ├── [deployment.yaml]  Deployment sealed-secrets/sealed-secrets
+        ├── [role-binding.yaml]  RoleBinding sealed-secrets/sealed-secrets-key-admin
+        ├── [role-binding.yaml]  RoleBinding sealed-secrets/sealed-secrets-service-proxier
+        ├── [role.yaml]  Role sealed-secrets/sealed-secrets-key-admin
+        ├── [role.yaml]  Role sealed-secrets/sealed-secrets-service-proxier
+        ├── [service-account.yaml]  ServiceAccount sealed-secrets/sealed-secrets
+        └── [service.yaml]  Service sealed-secrets/sealed-secrets-controller
+                                                                                
 ```
 
 </details>
