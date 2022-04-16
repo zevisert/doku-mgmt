@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: postgres-operator
+  labels:
+    app.kubernetes.io/name: pgo
+    app.kubernetes.io/version: 5.0.5
+    postgres-operator.crunchydata.com/control-plane: postgres-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: postgres-operator
+subjects:
+- kind: ServiceAccount
+  namespace: postgres-operator
+  name: pgo

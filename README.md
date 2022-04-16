@@ -10,6 +10,7 @@ The main components are:
 - mongodb-kubernetes-operator
 - sealed-secrets
 - external-dns
+- crunchydata's postgres-operator
 
 This repository lets me use Git-Ops to manage my cluster. I'm using a few configuration options that prevent provisioning clusters other than on Digitalocean, for instance: external load balancer options with ingress-nginx, and my letsencrypt issuer with cert-manager.
 
@@ -133,6 +134,17 @@ Package "doku-cluster-mgmt"
 │       ├── [Kptfile]  Kptfile clusterwide
 │       ├── [role.yaml]  ClusterRole mongodb-kubernetes-operator
 │       └── [role_binding.yaml]  ClusterRoleBinding mongodb-kubernetes-operator
+├── Package "postgres-operator"
+│   ├── [Kptfile]  Kptfile postgres-operator
+│   ├── [namespace.yaml]  Namespace postgres-operator
+│   ├── bases
+│   │   └── [postgres-operator.crunchydata.com_postgresclusters.yaml]  CustomResourceDefinition postgresclusters.postgres-operator.crunchydata.com
+│   ├── manager
+│   │   └── [manager.yaml]  Deployment postgres-operator/pgo
+│   └── cluster
+│       ├── [role.yaml]  ClusterRole postgres-operator
+│       ├── [role_binding.yaml]  ClusterRoleBinding postgres-operator
+│       └── [service_account.yaml]  ServiceAccount postgres-operator/pgo
 └── Package "sealed-secrets"
     ├── [Kptfile]  Kptfile sealed-secrets
     ├── [namespace.yaml]  Namespace sealed-secrets

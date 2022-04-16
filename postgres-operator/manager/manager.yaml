@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgo
+  namespace: postgres-operator
+  labels:
+    app.kubernetes.io/name: pgo
+    app.kubernetes.io/version: 5.0.5
+    postgres-operator.crunchydata.com/control-plane: postgres-operator
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      postgres-operator.crunchydata.com/control-plane: postgres-operator
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pgo
+        app.kubernetes.io/version: 5.0.5
+        postgres-operator.crunchydata.com/control-plane: postgres-operator
+    spec:
+      containers:
+      - name: operator
+        image: registry.developers.crunchydata.com/crunchydata/postgres-operator:ubi8-5.0.5-0
+        env:
+        - name: CRUNCHY_DEBUG
+          value: "true"
+        - name: RELATED_IMAGE_POSTGRES_14
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:centos8-14.2-0
+        - name: RELATED_IMAGE_POSTGRES_14_GIS_3.1
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:centos8-14.2-3.1-0
+        - name: RELATED_IMAGE_POSTGRES_13
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:centos8-13.6-0
+        - name: RELATED_IMAGE_POSTGRES_13_GIS_3.1
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:centos8-13.6-3.1-0
+        - name: RELATED_IMAGE_PGBACKREST
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:centos8-2.36-1
+        - name: RELATED_IMAGE_PGBOUNCER
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:centos8-1.16-1
+        - name: RELATED_IMAGE_PGEXPORTER
+          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.0.5-0
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+        resources: {}
+      serviceAccountName: pgo

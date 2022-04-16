@@ -1,0 +1,10 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: postgres-operator
+info:
+  description: sample description
+inventory:
+  namespace: postgres-operator
+  name: inventory-09754614
+  inventoryID: 834ad239b6b842a28e11e56c02586da3d644ffd5-1650152463502555933
