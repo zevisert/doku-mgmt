@@ -7,7 +7,7 @@ info:
 pipeline:
   mutators:
     - image: gcr.io/kpt-fn/apply-setters:v0.1
-      configMap: 
+      configMap:
         default-issuer.name: letsencrypt
         default-issuer.email: web+letsencrypt/doku@zevisert.ca
         default-issuer.ingressClass: nginx
@@ -16,6 +16,7 @@ pipeline:
         default-issuer.dnsSolver.zones: |
           - isert.ca
           - isert.link
+          - isert.family
           - zevisert.ca
           - zuzi.art
           - zuzanariha.art

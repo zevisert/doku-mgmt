@@ -12,25 +12,26 @@ spec:
       name: letsencrypt-account-key
       key: account.key
     solvers:
-    - dns01:
-        digitalocean:
-          tokenSecretRef:
-            key: access-token
-            name: digitalocean-dns
-      selector:
-        dnsZones: # kpt-set: ${default-issuer.dnsSolver.zones}
-        - isert.ca
-        - isert.link
-        - zevisert.ca
-        - zuzi.art
-        - zuzanariha.art
-    # kpt-set: ${default-issuer.dnsSolver.zones}
-    # kpt-set: ${default-issuer.dnsSolver.zones}
-    # kpt-set: ${default-issuer.dnsSolver.zones}
-    - # kpt-set: ${default-issuer.dnsSolver.zones}
-      http01:
-        ingress:
-          class: nginx # kpt-set: ${default-issuer.ingressClass}
-      selector:
-        matchLabels:
-          use-http01-solver: "true"
+      - dns01:
+          digitalocean:
+            tokenSecretRef:
+              key: access-token
+              name: digitalocean-dns
+        selector:
+          dnsZones: # kpt-set: ${default-issuer.dnsSolver.zones}
+            - isert.ca
+            - isert.link
+            - isert.family
+            - zevisert.ca
+            - zuzi.art
+            - zuzanariha.art
+      # kpt-set: ${default-issuer.dnsSolver.zones}
+      # kpt-set: ${default-issuer.dnsSolver.zones}
+      # kpt-set: ${default-issuer.dnsSolver.zones}
+      - # kpt-set: ${default-issuer.dnsSolver.zones}
+        http01:
+          ingress:
+            class: nginx # kpt-set: ${default-issuer.ingressClass}
+        selector:
+          matchLabels:
+            use-http01-solver: "true"
