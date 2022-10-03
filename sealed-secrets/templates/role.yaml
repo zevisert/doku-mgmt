@@ -1,52 +1,45 @@
-# Source: sealed-secrets/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: sealed-secrets-key-admin
-  namespace: sealed-secrets
+  annotations: {}
   labels:
-    app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.1.0
-    app.kubernetes.io/instance: sealed-secrets
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.17.2
-rules:
-- apiGroups:
-  - ''
-  resourceNames:
-  - sealed-secrets-key
-  resources:
-  - secrets
-  verbs:
-  - get
-- apiGroups:
-  - ''
-  resources:
-  - secrets
-  verbs:
-  - create
-  - list
----
-# Source: sealed-secrets/templates/role.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
+    name: sealed-secrets-service-proxier
   name: sealed-secrets-service-proxier
-  namespace: sealed-secrets
-  labels:
-    app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.1.0
-    app.kubernetes.io/instance: sealed-secrets
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.17.2
+  namespace: kube-system
 rules:
-- apiGroups:
-  - ''
-  resourceNames:
-  - 'http:sealed-secrets:'
-  - sealed-secrets
-  resources:
-  - services/proxy
-  verbs:
-  - create
-  - get
+  - apiGroups:
+      - ""
+    resourceNames:
+      - sealed-secrets-controller
+    resources:
+      - services
+    verbs:
+      - get
+  - apiGroups:
+      - ""
+    resourceNames:
+      - "http:sealed-secrets-controller:"
+      - http:sealed-secrets-controller:http
+      - sealed-secrets-controller
+    resources:
+      - services/proxy
+    verbs:
+      - create
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations: {}
+  labels:
+    name: sealed-secrets-key-admin
+  name: sealed-secrets-key-admin
+  namespace: kube-system
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+      - list

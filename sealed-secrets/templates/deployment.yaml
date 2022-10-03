@@ -1,63 +1,63 @@
-# Source: sealed-secrets/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sealed-secrets
-  namespace: sealed-secrets
+  annotations: {}
   labels:
-    app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.1.0
-    app.kubernetes.io/instance: sealed-secrets
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.17.2
+    name: sealed-secrets-controller
+  name: sealed-secrets-controller
+  namespace: kube-system
 spec:
+  minReadySeconds: 30
+  replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/name: sealed-secrets
-      app.kubernetes.io/instance: sealed-secrets
+      name: sealed-secrets-controller
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      annotations: {}
       labels:
-        app.kubernetes.io/name: sealed-secrets
-        app.kubernetes.io/instance: sealed-secrets
-      annotations:
-        # See: https://github.com/bitnami-labs/sealed-secrets/issues/62
-        cluster-autoscaler.kubernetes.io/safe-to-evict: 'true'
+        name: sealed-secrets-controller
     spec:
+      containers:
+        - args: []
+          command:
+            - controller
+          env: []
+          image: docker.io/bitnami/sealed-secrets-controller:v0.18.5
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          name: sealed-secrets-controller
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1001
+          stdin: false
+          tty: false
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp
+      imagePullSecrets: []
+      initContainers: []
       securityContext:
         fsGroup: 65534
-      serviceAccountName: sealed-secrets
-      containers:
-      - name: controller
-        command:
-        - controller
-        args:
-        - --update-status
-        - --key-prefix
-        - sealed-secrets-key
-        image: quay.io/bitnami/sealed-secrets-controller:v0.17.2
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-          name: http
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: http
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: http
-        resources:
-          limits: {}
-          requests: {}
-        securityContext:
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          runAsUser: 1001
-        volumeMounts:
-        - mountPath: /tmp
-          name: tmp
+      serviceAccountName: sealed-secrets-controller
+      terminationGracePeriodSeconds: 30
       volumes:
-      - name: tmp
-        emptyDir: {}
+        - emptyDir: {}
+          name: tmp
