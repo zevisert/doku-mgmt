@@ -1,16 +1,16 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
-metadata: # kpt-merge: /postgres-operator
-  name: postgres-operator
+metadata: # kpt-merge: /postgres-operator-upgrade
+  name: postgres-operator-upgrade
   labels:
     app.kubernetes.io/name: pgo
     app.kubernetes.io/version: 5.2.0
-    postgres-operator.crunchydata.com/control-plane: postgres-operator
+    postgres-operator.crunchydata.com/control-plane: postgres-operator-upgrade
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: postgres-operator
+  name: postgres-operator-upgrade
 subjects:
   - kind: ServiceAccount
+    name: postgres-operator-upgrade
     namespace: postgres-operator
-    name: pgo

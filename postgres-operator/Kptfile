@@ -2,6 +2,20 @@ apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: postgres-operator
+upstream:
+  type: git
+  git:
+    repo: https://github.com/CrunchyData/postgres-operator-examples
+    directory: /kustomize/install
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/CrunchyData/postgres-operator-examples
+    directory: /kustomize/install
+    ref: main
+    commit: 206cc6aa0aa148133d3147d286f9b3c68b820ffb
 info:
   description: sample description
 inventory:

@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+metadata: # kpt-merge: postgres-operator/pgo
   name: pgo
   namespace: postgres-operator
   labels:
     app.kubernetes.io/name: pgo
-    app.kubernetes.io/version: 5.0.5
+    app.kubernetes.io/version: 5.2.0
     postgres-operator.crunchydata.com/control-plane: postgres-operator
 spec:
   replicas: 1
@@ -18,32 +18,44 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: pgo
-        app.kubernetes.io/version: 5.0.5
+        app.kubernetes.io/version: 5.2.0
         postgres-operator.crunchydata.com/control-plane: postgres-operator
     spec:
       containers:
-      - name: operator
-        image: registry.developers.crunchydata.com/crunchydata/postgres-operator:ubi8-5.0.5-0
-        env:
-        - name: CRUNCHY_DEBUG
-          value: "true"
-        - name: RELATED_IMAGE_POSTGRES_14
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:centos8-14.2-0
-        - name: RELATED_IMAGE_POSTGRES_14_GIS_3.1
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:centos8-14.2-3.1-0
-        - name: RELATED_IMAGE_POSTGRES_13
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:centos8-13.6-0
-        - name: RELATED_IMAGE_POSTGRES_13_GIS_3.1
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:centos8-13.6-3.1-0
-        - name: RELATED_IMAGE_PGBACKREST
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:centos8-2.36-1
-        - name: RELATED_IMAGE_PGBOUNCER
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:centos8-1.16-1
-        - name: RELATED_IMAGE_PGEXPORTER
-          value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.0.5-0
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-        resources: {}
+        - name: operator
+          image: registry.developers.crunchydata.com/crunchydata/postgres-operator:ubi8-5.2.0-0
+          env:
+            - name: PGO_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CRUNCHY_DEBUG
+              value: "true"
+            - name: RELATED_IMAGE_POSTGRES_14
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-14.5-1
+            - name: RELATED_IMAGE_POSTGRES_14_GIS_3.1
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-14.5-3.1-1
+            - name: RELATED_IMAGE_POSTGRES_14_GIS_3.2
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-14.5-3.2-1
+            - name: RELATED_IMAGE_POSTGRES_13
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-13.8-1
+            - name: RELATED_IMAGE_POSTGRES_13_GIS_3.0
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-13.8-3.0-1
+            - name: RELATED_IMAGE_POSTGRES_13_GIS_3.1
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-13.8-3.1-1
+            - name: RELATED_IMAGE_PGADMIN
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-pgadmin4:ubi8-4.30-4
+            - name: RELATED_IMAGE_PGBACKREST
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.40-1
+            - name: RELATED_IMAGE_PGBOUNCER
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.17-1
+            - name: RELATED_IMAGE_PGEXPORTER
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.2.0-0
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
       serviceAccountName: pgo
