@@ -17,22 +17,21 @@ spec:
     spec:
       serviceAccountName: external-dns
       containers:
-      - name: external-dns
-        # ^v0.10 requires >= kube 1.22
-        image: k8s.gcr.io/external-dns/external-dns:v0.9.0
-        args:
-        - --registry=txt
-        - --source=service
-        - --source=ingress
-        - --domain-filter=isert.link
-        - --domain-filter=isert.ca
-        - --domain-filter=zevisert.ca
-        - --domain-filter=zuzi.art
-        - --domain-filter=zuzanariha.art
-        - --provider=digitalocean
-        env:
-        - name: DO_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: access-token
-              name: digitalocean-dns
+        - name: external-dns
+          image: k8s.gcr.io/external-dns/external-dns:v0.13.1
+          args:
+            - --registry=txt
+            - --source=service
+            - --source=ingress
+            - --domain-filter=isert.link
+            - --domain-filter=isert.ca
+            - --domain-filter=zevisert.ca
+            - --domain-filter=zuzi.art
+            - --domain-filter=zuzanariha.art
+            - --provider=digitalocean
+          env:
+            - name: DO_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: access-token
+                  name: digitalocean-dns
