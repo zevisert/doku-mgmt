@@ -24,6 +24,7 @@ spec:
             - --source=service
             - --source=ingress
             - --domain-filter=isert.link
+            - --domain-filter=isert.family
             - --domain-filter=isert.ca
             - --domain-filter=zevisert.ca
             - --domain-filter=zuzi.art
