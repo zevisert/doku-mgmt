@@ -1,0 +1,7 @@
+apiVersion: kpt.dev/v1alpha1
+kind: ResourceGroup
+metadata:
+  name: inventory-69805044
+  namespace: mongodb-operator
+  labels:
+    cli-utils.sigs.k8s.io/inventory-id: aa51ddd940990379e49efa8973a9dd0a67e8171a-1640819111005037748
