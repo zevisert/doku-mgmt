@@ -1,2 +1,4 @@
 scripts/
 .vscode/
+.devenv/
+devenv.yaml
