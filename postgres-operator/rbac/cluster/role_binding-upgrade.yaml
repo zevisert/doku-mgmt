@@ -4,8 +4,10 @@ metadata: # kpt-merge: /postgres-operator-upgrade
   name: postgres-operator-upgrade
   labels:
     app.kubernetes.io/name: pgo
-    app.kubernetes.io/version: 5.2.0
+    app.kubernetes.io/version: 5.3.0
     postgres-operator.crunchydata.com/control-plane: postgres-operator-upgrade
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|postgres-operator-upgrade'
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

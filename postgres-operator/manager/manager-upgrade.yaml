@@ -1,12 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: # kpt-merge: postgres-operator/pgo-upgrade
+metadata: # kpt-merge: /pgo-upgrade
   name: pgo-upgrade
   namespace: postgres-operator
   labels:
     app.kubernetes.io/name: pgo
-    app.kubernetes.io/version: 5.2.0
+    app.kubernetes.io/version: 5.3.0
     postgres-operator.crunchydata.com/control-plane: postgres-operator-upgrade
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'apps|Deployment|default|pgo-upgrade'
 spec:
   replicas: 1
   selector:
@@ -18,12 +20,12 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: pgo
-        app.kubernetes.io/version: 5.2.0
+        app.kubernetes.io/version: 5.3.0
         postgres-operator.crunchydata.com/control-plane: postgres-operator-upgrade
     spec:
       containers:
         - name: operator
-          image: registry.developers.crunchydata.com/crunchydata/postgres-operator-upgrade:ubi8-5.2.0-0
+          image: registry.developers.crunchydata.com/crunchydata/postgres-operator-upgrade:ubi8-5.3.0-0
           env:
             - name: PGO_NAMESPACE
               valueFrom:
@@ -32,7 +34,7 @@ spec:
             - name: CRUNCHY_DEBUG
               value: "true"
             - name: RELATED_IMAGE_PGUPGRADE
-              value: registry.developers.crunchydata.com/crunchydata/crunchy-upgrade:ubi8-5.2.0-0
+              value: registry.developers.crunchydata.com/crunchydata/crunchy-upgrade:ubi8-5.3.0-0
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

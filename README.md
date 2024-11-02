@@ -32,9 +32,9 @@ Package "doku-cluster-mgmt"
 │   │   └── secrets
 │   │       └── [digitalocean-dns.secret.yaml]  Secret cert-manager/digitalocean-dns
 │   ├── self-signed-issuer
-│   │   ├── [ca-issuer.yaml]  ClusterIssuer ca-issuer
-│   │   └── secrets
-│   │       └── [ca-key.secret.yaml]  Secret cert-manager/ca-key-pair
+│   │   └── [ca-issuer.yaml]  ClusterIssuer ca-issuer
+│   ├── secrets
+│   │   └── [ca-key.secret.yaml]  Secret cert-manager/ca-key-pair
 │   ├── Package "upstream"
 │   │   ├── [Kptfile]  Kptfile cert-manager
 │   │   ├── [clusterrole_cert-manager-cainjector.yaml]  ClusterRole cert-manager-cainjector
